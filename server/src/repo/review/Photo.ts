@@ -1,7 +1,7 @@
 import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Review} from "./Review";
 
-@Entity()
+@Entity({ name: "Photos" })
 export class Photo {
 
     @PrimaryGeneratedColumn()

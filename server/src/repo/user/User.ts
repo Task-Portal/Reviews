@@ -1,10 +1,12 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn,} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany,} from "typeorm";
 import { Length } from "class-validator";
 
 import { Auditable } from "../Auditable";
 import {UserStatus} from "./UserStatus";
 import {UserThemeMode} from "./UserThemeMode";
 import {UserLanguage} from "./UserLanguage";
+import {Review} from "../review/Review";
+import {Like} from "../review/Like";
 
 
 
@@ -44,5 +46,10 @@ export class User extends Auditable {
   @JoinColumn()
   language: UserLanguage;
 
+  @OneToMany(() => Review, review => review.user)
+  reviews: Review[];
+
+  @OneToMany(() => Like, like => like.user)
+  likes: Like[];
 
 }

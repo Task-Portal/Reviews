@@ -1,12 +1,14 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany, ManyToOne} from "typeorm";
 import {Length} from "class-validator";
 import {ReviewCategory} from "./ReviewCategory";
 import {Photo} from "./Photo";
 import {Tag} from "./Tag";
 import {Points} from "./Points";
+import {Like} from "./Like";
+import {User} from "../user/User";
 
 
-@Entity()
+@Entity({ name: "Review" })
 export class Review  {
   @PrimaryGeneratedColumn({ name: "Id", type: "bigint" })
   id: string;
@@ -19,10 +21,7 @@ export class Review  {
   @Length(10, 2500)
   body: string;
 
-  // @Column("int", { name: "Points", default: 0, nullable: false })
-  // points: number;
-  // Todo user like
-  //
+
   @Column("int", { name: "AuthorMark", default: 0, nullable: false })
   authorMark: number;
 
@@ -37,6 +36,11 @@ export class Review  {
   tags: Tag[];
   @OneToMany(() => Points, point => point.review)
   points: Points[];
+  @OneToMany(() => Like, like => like.review)
+  likes: Like[];
+
+  @ManyToOne(() => User, user => user.reviews)
+  user: User;
 
 
 

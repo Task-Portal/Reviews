@@ -2,7 +2,7 @@ import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Review} from "./Review";
 import {Length} from "class-validator";
 
-@Entity()
+@Entity({ name: "Tags" })
 export class Tag {
 
     @PrimaryGeneratedColumn()
