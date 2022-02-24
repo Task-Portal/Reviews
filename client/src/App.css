@@ -1,0 +1,168 @@
+:root {
+  --min-screen-height: 1000px;
+
+  --border-color: gray;
+  --border: solid 0.1em var(--border-color);
+  --input-border-color: #e6ebf1;
+  --input-border: solid 3px var(--input-border-color);
+  --proceed-color: rgb(81, 142, 132);
+  --point-color: rgb(54, 69, 79);
+  --section-divider-color: rgba(115, 136, 181, 0.35);
+
+  --panel-border-thickness: 0.05em;
+  --panel-color: white;
+
+  --sm-font-size: 0.95em;
+  --sm-med-font-size: 1.1em;
+  --md-font-size: 1.25em;
+}
+
+body {
+  min-height: 75rem;
+  background-image: url(../src/img/library.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
+.bootstrap_class{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: 8rem;
+  background: rgb(255,255,255);
+  background: radial-gradient(circle, rgba(255,255,255,0.9783263647255778) 0%, rgba(238,226,97,0.8550770650056898) 100%);
+
+}
+
+.modal-menu {
+  position: fixed;
+  min-width: 550px;
+  left: 50%;
+  top: 4.5em;
+  transform: translate(-50%);
+  border: var(--border);
+  border-radius: 5px;
+  background-color: white;
+  padding: 1em 1em 1em 1em;
+  z-index: 1000;
+}
+
+
+
+input[type="text"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.action-btn {
+  background-color: skyblue;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background-color: white;
+  color: gray;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: solid 1px gray;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-buttons {
+  margin-top: 0.25em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-flow: column;
+}
+
+.form-buttons-sm {
+  grid-template-columns: 1fr;
+}
+
+.form-btn-left {
+  grid-column: 1;
+}
+
+.form-btn-right {
+  grid-column: 2;
+  margin-left: 2em;
+  padding-top: 0.8em;
+}
+
+.menu-name{
+  color: #03a9f4;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+
+}
+
+
+.icon-fontAwesome{
+  color: gold;
+}
+
+.nav_li{
+  margin-right: 1em;
+}
+
+
+
+@media screen and (orientation: portrait) and (max-width: 768px) {
+  .form-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .form-btn-left {
+    grid-column: 1;
+  }
+
+  .form-btn-right {
+    grid-column: 1;
+    margin-left: 0.5em;
+    padding-top: 0.5em;
+  }
+
+  .App {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "nav"
+      "content";
+  }
+
+  .modal-menu {
+    min-width: 60px;
+    left: 0.5em;
+    right: 0.5em;
+    top: 3.5em;
+    transform: translate(0%);
+  }
+}
