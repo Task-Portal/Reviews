@@ -1,6 +1,6 @@
 import {IResolvers} from "apollo-server-express";
 
-import {User} from "../repo/User";
+import {User} from "../repo/user/User";
 import {
     checkEmailInDb,
     login,
@@ -8,7 +8,7 @@ import {
     me,
     register,
     UserResult,
-} from "../repo/UserRepo";
+} from "../repo/user/UserRepo";
 import {GqlContext} from "./GqlContext";
 
 

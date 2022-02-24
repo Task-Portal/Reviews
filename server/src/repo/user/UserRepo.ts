@@ -1,7 +1,7 @@
 import {User} from "./User";
 import bcrypt from "bcryptjs";
-import {isPasswordValid} from "../common/validators/PasswordValidator";
-import {isEmailValid} from "../common/validators/EmailValidator";
+import {isPasswordValid} from "../../common/validators/PasswordValidator";
+import {isEmailValid} from "../../common/validators/EmailValidator";
 
 const saltRounds = 10;
 
