@@ -10,7 +10,7 @@ export class UserThemeMode {
 
 
   @Column("varchar", {
-    name: "name",
+    name: "Name",
     length: 30,
     nullable: false,
     unique: true,

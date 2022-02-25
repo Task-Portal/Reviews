@@ -9,7 +9,7 @@ export class UserLanguage {
   id: string;
 
   @Column("varchar", {
-    name: "language",
+    name: "Language",
     length: 10,
     nullable: false,
     unique: true,

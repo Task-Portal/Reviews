@@ -1,0 +1,15 @@
+
+--Categories
+INSERT INTO public."Categories" ("Name") VALUES ('Books');
+INSERT INTO public."Categories" ("Name") VALUES ('Films');
+
+--Language
+INSERT INTO public."UserLanguage" ("language") VALUES ('en');
+INSERT INTO public."UserLanguage" ("language") VALUES ('ru');
+
+--Status
+INSERT INTO public."UserStatus" ("statusName") VALUES ('admin');
+INSERT INTO public."UserStatus" ("statusName") VALUES ('user');
+
+
+

@@ -4,7 +4,7 @@ import {Review} from "./Review";
 @Entity({ name: "Points" })
 export class Points {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({name:"Id"})
     id: number;
 
     @Column("int", { name: "Points", default: 0, nullable: false })

@@ -10,7 +10,7 @@ export class UserStatus {
 
 
   @Column("varchar", {
-    name: "statusName",
+    name: "StatusName",
     length: 60,
     nullable: false,
     unique: true,

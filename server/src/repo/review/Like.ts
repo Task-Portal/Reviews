@@ -5,7 +5,7 @@ import {User} from "../user/User";
 @Entity({ name: "Likes" })
 export class Like {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({ name: "Id", type: "int" })
     id: number;
 
     @Column("boolean", { name: "Like", default: false, nullable: false })
