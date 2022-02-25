@@ -8,11 +8,71 @@ const typeDefs = gql`
         messages: [String!]
     }
 
+
+    type Category {
+        id: ID!
+        name: String!        
+    } 
+    type Photo {
+        id: ID!
+        url: String!
+        review: Review
+    }
+    type Tag {
+        id: ID!
+        title: String!
+        review: Review
+    }
+    type Points {
+        id: ID!
+        points: Int!
+        review: Review
+    }
+
+    type Like {
+        id: ID!
+        like: Boolean!
+        user: User!
+        review: Review!
+    }
+    type UserLanguage {
+        id: ID!
+        userLanguage: String!
+        user:User!        
+    }
+    type UserThemeMode {
+        id: ID!
+        name: String!
+        user:User!        
+    }
+    type UserStatus {
+        id: ID!
+        name: String!
+        status:String!
+        user:User!          
+    }
+    type Review{
+        id: ID!
+        title: String!
+        body: String!
+        authorMark: Int!
+        category:Category!
+        photos:[Photo]
+        tags:[Tag]
+        points:[Points]
+        likes:[Like]
+        user:User!
+    }
     type User {
         id: ID!
         email: String!
         userName: String!
         password: String!
+        status:UserStatus!
+        mode:UserThemeMode!
+        language:UserLanguage!
+        reviews:[Review]
+        likes:[Like]
         lastTimeLogin: Date!
         createdBy: String!
         createdOn: Date!

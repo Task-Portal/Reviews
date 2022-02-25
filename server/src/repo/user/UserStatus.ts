@@ -16,7 +16,7 @@ export class UserStatus {
     unique: true,
     default:"user"
   })
-  userStatusName: string;
+  status: string;
 
   @OneToOne(() => User, user => user.status)
   user: User;

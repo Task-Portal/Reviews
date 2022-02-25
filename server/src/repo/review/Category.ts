@@ -2,8 +2,8 @@ import {Entity, PrimaryGeneratedColumn, Column, OneToOne} from "typeorm";
 import {Review} from "./Review";
 
 
-@Entity({ name: "ReviewCategories" })
-export class ReviewCategory  {
+@Entity({ name: "Categories" })
+export class Category  {
   @PrimaryGeneratedColumn({ name: "Id", type: "int" })
   id: string;
 

@@ -1,6 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany, ManyToOne} from "typeorm";
 import {Length} from "class-validator";
-import {ReviewCategory} from "./ReviewCategory";
+import {Category} from "./Category";
 import {Photo} from "./Photo";
 import {Tag} from "./Tag";
 import {Points} from "./Points";
@@ -25,9 +25,9 @@ export class Review  {
   @Column("int", { name: "AuthorMark", default: 0, nullable: false })
   authorMark: number;
 
-  @OneToOne(() => ReviewCategory, category=>category.review)
+  @OneToOne(() => Category, category=>category.review)
   @JoinColumn()
-  category: ReviewCategory;
+  category: Category;
 
   @OneToMany(() => Photo, photo => photo.review)
   photos: Photo[];
