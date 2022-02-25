@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany, ManyToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column,  JoinColumn, OneToMany, ManyToOne} from "typeorm";
 import {Length} from "class-validator";
 import {Category} from "./Category";
 import {Photo} from "./Photo";
@@ -17,7 +17,7 @@ export class Review  {
   @Length(5, 150)
   title: string;
 
-  @Column("varchar", { name: "Body", length: 2500, nullable: true })
+  @Column("varchar", { name: "Body", length: 5000, nullable: true })
   @Length(10, 2500)
   body: string;
 
@@ -25,7 +25,7 @@ export class Review  {
   @Column("int", { name: "AuthorMark", default: 0, nullable: false })
   authorMark: number;
 
-  @OneToOne(() => Category, category=>category.review)
+  @ManyToOne(() => Category, category=>category.review)
   @JoinColumn()
   category: Category;
 

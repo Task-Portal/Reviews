@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne,} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column,  OneToMany,} from "typeorm";
 import {User} from "./User";
 
 
@@ -18,7 +18,7 @@ export class UserThemeMode {
   })
   name: string;
 
-  @OneToOne(() => User, user => user.mode)
+  @OneToMany(() => User, user => user.mode)
   user: User;
 
 

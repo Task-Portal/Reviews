@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany,} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column,  JoinColumn, OneToMany, ManyToOne,} from "typeorm";
 import { Length } from "class-validator";
 
 import { Auditable } from "../Auditable";
@@ -34,15 +34,15 @@ export class User extends Auditable {
   @Length(1, 100)
   password: string;
 
-  @OneToOne(() => UserStatus, status=>status.user)
+  @ManyToOne(() => UserStatus, status=>status.user)
   @JoinColumn()
   status: UserStatus;
 
-  @OneToOne(() => UserThemeMode, mode =>mode.user)
+  @ManyToOne(() => UserThemeMode, mode =>mode.user)
   @JoinColumn()
   mode: UserThemeMode;
 
-  @OneToOne(() => UserLanguage, lang =>lang.user)
+  @ManyToOne(() => UserLanguage, lang =>lang.user)
   @JoinColumn()
   language: UserLanguage;
 

@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne,} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column,  OneToMany,} from "typeorm";
 import {User} from "./User";
 
 
@@ -18,7 +18,7 @@ export class UserStatus {
   })
   status: string;
 
-  @OneToOne(() => User, user => user.status)
+  @OneToMany(() => User, user => user.status)
   user: User;
 
 

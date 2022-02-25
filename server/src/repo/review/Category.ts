@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column,  OneToMany} from "typeorm";
 import {Review} from "./Review";
 
 
@@ -15,6 +15,6 @@ export class Category  {
   })
   name: string;
 
-  @OneToOne(() => Review, review => review.category)
+  @OneToMany(() => Review, review => review.category)
   review: Review;
 }

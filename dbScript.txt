@@ -4,12 +4,97 @@ INSERT INTO public."Categories" ("Name") VALUES ('Books');
 INSERT INTO public."Categories" ("Name") VALUES ('Films');
 
 --Language
-INSERT INTO public."UserLanguage" ("language") VALUES ('en');
-INSERT INTO public."UserLanguage" ("language") VALUES ('ru');
+INSERT INTO public."UserLanguage" ("Language") VALUES ('en');
+INSERT INTO public."UserLanguage" ("Language") VALUES ('ru');
 
 --Status
-INSERT INTO public."UserStatus" ("statusName") VALUES ('admin');
-INSERT INTO public."UserStatus" ("statusName") VALUES ('user');
+INSERT INTO public."UserStatus" ("StatusName") VALUES ('admin');
+INSERT INTO public."UserStatus" ("StatusName") VALUES ('user');
 
 
+--Theme
+INSERT INTO public."UserThemeMode" ("Name") VALUES ('light');
+INSERT INTO public."UserThemeMode" ("Name") VALUES ('dark');
 
+
+--Users
+INSERT INTO public."Users" ("CreatedBy", "CreatedOn", "LastModifiedBy", "LastModifiedOn", "Email",
+						   "UserName", "Password", "statusId", "modeId", "languageId"
+						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'alex@alex.com', 'Alex', '1',1,1,1);
+
+INSERT INTO public."Users" ("CreatedBy", "CreatedOn", "LastModifiedBy", "LastModifiedOn", "Email",
+						   "UserName", "Password", "statusId", "modeId", "languageId"
+						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'john@john.com', 'John', '1',1,1,1);
+INSERT INTO public."Users" ("CreatedBy", "CreatedOn", "LastModifiedBy", "LastModifiedOn", "Email",
+						   "UserName", "Password", "statusId", "modeId", "languageId"
+						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'lena@lena.com', 'Lena', '1',1,1,1);
+
+INSERT INTO public."Users" ("CreatedBy", "CreatedOn", "LastModifiedBy", "LastModifiedOn", "Email",
+						   "UserName", "Password", "statusId", "modeId", "languageId"
+						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'merry@merry.com', 'Merry', '1',1,1,1);
+
+INSERT INTO public."Users" ("CreatedBy", "CreatedOn", "LastModifiedBy", "LastModifiedOn", "Email",
+						   "UserName", "Password", "statusId", "modeId", "languageId"
+						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'jeck@jeck.com', 'Jeka', '1',1,1,1);
+
+--Reviews Books
+INSERT INTO public."Review" ("Title", "Body", "AuthorMark", "categoryId", "userId"
+						   ) VALUES ('Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones',
+									 'I previously wrote this review right after reading the book. Today, February 15th, after applying James’s system for 100 days on a few tiny habits, I feel compelled to share updates with you because they have sincerely worked.
+I will divide the review into 5 parts. The first part is a summary of the book with short excerpts highlighted while taking notes.
+									 Next, I hope to share pieces of advice that have motivated me while building new habits.
+									 Following that, I will share how I implemented the first 3 habits throughout these months.
+									 Then, some thoughts to whom I would recommend reading the book. Last, there are 4 complementary readings.',
+									 5, '1', '1');
+
+INSERT INTO public."Review" ("Title", "Body", "AuthorMark", "categoryId", "userId"
+						   ) VALUES ('Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones',
+									 'I''ve read a lot of books on changing behavior and building habits and James Clear''s Atomic Habits is my new favorite. This book is different from others in the way it covers an enormous amount of ground in the larger area of self-improvement while seamlessly tying all these ideas back into the central theme of habits.
+
+One of the core concepts in Atomic Habits is to focus on the small improvement. The impact a 1% improvement per day can make may appear negligible at first, but Clear makes a compelling argument that in the case of habits, thinking small produces the biggest results over time. "Habits are the compound interest of self-improvement," explains Clear.
+
+Over the months and years, the accumulated effect of small habitual daily behaviors is staggering. Early in the book we are also warned that this compounding works both ways, so we''d better make sure we''re making it work in the positive direction, not for the negative.',
+									 5, '1', '2');
+
+
+INSERT INTO public."Review" ("Title", "Body", "AuthorMark", "categoryId", "userId"
+						   ) VALUES ('Tiny Habits: The Small Changes That Change Everything',
+									 'The Tiny Habits method is nothing short of brilliant, effective and transformative. I have been a huge fan of BJ Fogg''s work and am thrilled that he has shared his methods in a book. Much needed. I have used his methods for almost 2 years now - it is easy and works. I love that he has shared a methodology that doesn''t require motivation and doesn''t have to be hard. Big changes, less effort, super effective - exactly how I like change to be. The method is simple but it is evident it has depth of thinking and insights from years of experience and experimenting in the space.
+
+I have used it for weight loss, building habits for better relationships (personal and professional) and safety habits to name a few. This is a life changing skill to develop. Read it, apply it and reap the benefits.', 4, '1', '2');
+
+INSERT INTO public."Review" ("Title", "Body", "AuthorMark", "categoryId", "userId"
+						   ) VALUES ('The Meaning of Mariah Carey',
+									 'This book is an insightful look into the life, struggles and success of Mariah Carey.
+I can remember as a bi-racial connecting with her music and her story.
+I appreciate her story and learning more about her life.
+She is an inspiration and her story is filled with hope and lessons.
+I highly recommend this book if you love her music and want to learn the stories behind her timeless music.', 3, '1', '3');
+
+INSERT INTO public."Review" ("Title", "Body", "AuthorMark", "categoryId", "userId"
+						   ) VALUES ('What My Bones Know: A Memoir of Healing from Complex Trauma',
+									 'Each time I read a book like this, I learn new things. I know about PTSD, but not the complex form like the author has. Her childhood was terrible with abusive parents who basically abandoned her. That was appalling to read. I focused more on her personal story than the diagnosis and therapy aspects. Foo is a Testament to perseverance and temerity. When she talks about changing doctors who no longer worked for her, I thought how we all have to be our own best advocates. Much food for thought in this memoir.', 3, '1', '4');
+
+
+--Movies
+INSERT INTO public."Review" ("Title", "Body", "AuthorMark", "categoryId", "userId"
+						   ) VALUES ('Cold Pursuit',
+									 'After being awarded "Citizen of the Year" by the fictional ski resort of Kehoe, Colorado, snowplow driver Nels Coxman''s quiet life is disrupted when his son dies from a forced heroin overdose. He learns that his son was murdered by a Denver drug cartel. He decides to seek vigilante justice, makes a sawed-off rifle, and kills three members of the cartel, dumping their bodies in a nearby river. Nels'' wife Grace leaves her husband in grief.
+
+The cartel''s psychopathic leader, drug lord Trevor "Viking" Calcote, first suspects that these deaths are the work of his rival White Bull, an Ute with whom he has so far avoided conflict. Viking has one of Bull''s gangsters murdered, not knowing it is White Bull''s only son. This drives White Bull to seek "a son for a son", and he orders his men to kidnap Viking''s young son.
+
+Nels seeks advice from his brother Brock, once a mob enforcer known as "Wingman", and learns about Viking. Brock tells Nels that killing Viking requires a hired assassin, and he recommends a transplanted African-American hitman known as "The Eskimo." The Eskimo agrees to kill Viking for $90,000, but decides he can get another $90,000 from Viking by informing him that "Coxman" has hired him for the hit. Viking does not appreciate the Eskimo''s "lack of professional ethics" and kills him. He thinks the Eskimo meant Brock Coxman, and he takes Brock for his "last ride." Since Brock is dying of rectal cancer, he claims responsibility for the hits to protect his brother.
+
+Viking tries in vain to stop the gang war by using one of his own men as a scapegoat and sending White Bull the man''s head. This is insufficient to placate White Bull, who shoots the messenger. Meanwhile, Nels kidnaps Viking''s son from his prep school before White Bull''s men can do so, in order to draw Viking into an ambush. Nels treats the boy well and protects him from the violence to come.
+
+Nels'' identity is revealed to Viking by the prep school''s janitor. Though promised $10,000 for the tip, he too is killed after his disclosure.
+
+Both gangs arrive at Nels'' workplace, and most of them are killed in the ensuing shootout. Viking, attempting to drive away, is trapped when Nels uses heavy machinery to impale Viking''s car with a shorn tree trunk, allowing White Bull to shoot Viking in the chest. He dies when found by Kehoe police detectives Kimberly Dash and Gip. As Nels leaves the property in his snowplow to continue his work, White Bull jumps into the cab, and the two men drive away together. Bull''s last remaining enforcer, who had set off on a paraglide flight from the ski resort hotel where the gang stayed the night before, accidentally lands directly in the snowplow''s path and is killed.', 2, '2', '1');
+
+INSERT INTO public."Review" ("Title", "Body", "AuthorMark", "categoryId", "userId"
+						   ) VALUES ('13 Hours: The Secret Soldiers of Benghazi',
+									 'A security team consisting of six members fights to defend an American diplomatic compound in Benghazi, Libya, against a wave of terrorist attacks.', 4, '2', '4');
+
+INSERT INTO public."Review" ("Title", "Body", "AuthorMark", "categoryId", "userId"
+						   ) VALUES ('Spider-Man: No Way Home',
+									 'Swinging right back to the moment that changed Peter Parker’s (Tom Holland) life in ‘Far From Home’ (2019), ‘No Way Home’ shows us why Peter’s secret is crucial. Not just to him but also to his friends and loved ones. Peter approaches Doctor Strange (Benedict Cumberbatch) to change things back to the way they were before. But as the sorcerer uses his powers to make the world forget Spider-Man’s identity, Peter gets a lot more than he bargained for.', 5, '2', '2');
