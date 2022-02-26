@@ -1,12 +1,11 @@
 import { combineReducers } from "redux";
 import { UserProfileReducer } from "./user/UserReducer";
-import {UsersDataReducer} from "./usersData/UsersDataReducer";
-import {SelectedCboxReducer} from "./selectedCheckboxes/selectedCboxReducer";
+import {ReviewsDataReducer} from "./reviewsData/ReviewsDataReducer";
 
 export const rootReducer = combineReducers({
   user: UserProfileReducer,
-  users:UsersDataReducer,
-  selectedCbox:SelectedCboxReducer
+  reviews:ReviewsDataReducer,
+
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

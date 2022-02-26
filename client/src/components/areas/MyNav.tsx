@@ -14,7 +14,7 @@ import {faUserMinus} from "@fortawesome/free-solid-svg-icons/faUserMinus";
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
-import {Button} from "react-bootstrap";
+import {Button,Form,FormControl} from "react-bootstrap";
 import {gql, useMutation} from "@apollo/client";
 
 // const btnHandler = gql`
@@ -72,7 +72,7 @@ const MyNav = () => {
     // };
 
     return (
-        <Navbar bg="black" expand="lg">
+        <Navbar  expand="lg" fixed="top">
             <Container>
                 <Navbar.Brand href="#" style={{color: "gold"}}>Review</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll"/>
@@ -123,8 +123,17 @@ const MyNav = () => {
 
                     </Nav>
 
-
+                    <Form className="d-flex">
+                        <FormControl
+                            type="search"
+                            placeholder="Search"
+                            className="me-2"
+                            aria-label="Search"
+                        />
+                        <Button variant="outline-warning">Search</Button>
+                    </Form>
                 </Navbar.Collapse>
+
             </Container>
         </Navbar>
     )

@@ -10,6 +10,9 @@ import {
     UserResult,
 } from "../repo/user/UserRepo";
 import {GqlContext} from "./GqlContext";
+import {QueryArrayResult} from "../repo/QueryArrayResult";
+import {getAllReviews} from "../repo/review/ReviewRepo";
+import {Review} from "../repo/review/Review";
 
 
 declare module "express-session" {
@@ -30,6 +33,13 @@ const resolvers: IResolvers = {
                 return "EntityResult";
             }
             return "User";
+        },
+    }, ReviewResult: {
+        __resolveType(obj: any, context: GqlContext, info: any) {
+            if (obj.messages) {
+                return "EntityResult";
+            }
+            return "Review";
         },
     },
 
@@ -68,6 +78,29 @@ const resolvers: IResolvers = {
                 return await checkEmailInDb(args.email);
             } catch (ex) {
                 console.log(ex);
+                throw ex;
+            }
+        },
+        getAllReviews: async (
+            obj: any,
+            args: null,
+            ctx: GqlContext,
+            info: any
+        ): Promise<Array<Review> | EntityResult> => {
+            let reviews: QueryArrayResult<Review>;
+
+            try {
+                reviews = await getAllReviews();
+                if (reviews.entities) {
+
+                    return reviews.entities;
+                }
+                return {
+                    messages: reviews.messages
+                        ? reviews.messages
+                        : [STANDARD_ERROR],
+                };
+            } catch (ex) {
                 throw ex;
             }
         },

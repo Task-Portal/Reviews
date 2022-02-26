@@ -80,12 +80,14 @@ const typeDefs = gql`
         lastModifiedOn: Date!
     }
     union UserResult = User | EntityResult
+    union ReviewResult = Review | EntityResult
 
 
 
     type Query {
         me: UserResult!
         checkEmail(email: String!): String!
+        getAllReviews:[Review!]
     }
 
     type Mutation {

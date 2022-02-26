@@ -1,71 +1,55 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./App.scss";
 import {Route, Switch} from "react-router-dom";
 import Home from "./components/routes/Home";
-import {useDispatch, useSelector} from "react-redux";
-import {gql, useMutation, useQuery} from "@apollo/client";
-import {UsersDateType} from "./store/usersData/UsersDataReducer";
-import {AppState} from "./store/AppState";
-import User from "./models/User";
-import useRefreshReduxMe, {Me} from "./hooks/useRefreshReduxMe";
-import {LogoutMutation} from "./components/auth/Logout";
+import {useDispatch} from "react-redux";
+import {gql, useQuery} from "@apollo/client";
+import {ReviewsDateType} from "./store/reviewsData/ReviewsDataReducer";
+import Review from "./models/Review";
 
-// const GetAllUsers = gql`
-//     query getAllUsers {
-//         getAllUsers {
-//             id
-//             userName
-//             email
-//             status
-//             createdOn
-//             lastModifiedOn
-//         }
-//     }
-// `;
+const GetAllReviews = gql`
+    query getAllReviews {
+        getAllReviews {
+            id
+            body
+            title
+            authorMark
+#            category {
+#                name
+#            }
+        }
+    }
+`;
 
 function App() {
 
     const dispatch = useDispatch();
 
-    const user = useSelector((state: AppState) => state.user);
-    const {deleteMe} = useRefreshReduxMe();
-    const [execLogout] = useMutation(LogoutMutation, {
-        refetchQueries: [
-            {
-                query: Me,
-            },
-        ],
-    });
+    const [reviews, setReviews] = useState<Array<Review>>([])
+     const { loading, error, data } = useQuery(GetAllReviews);
+    useEffect(() => {
+        console.log("ReviewsData: ", data)
+        console.log("Error: ", error)
+        console.log("Loading: ", loading)
+        if (!loading)
+        setReviews(data)
 
-    // const {data: usersDate} = useQuery(GetAllUsers, {
-    //     pollInterval: 1000,
-    //     nextFetchPolicy: "network-only",
-    //     onCompleted: (data) => {
-    //         dispatch({
-    //             type: UsersDateType.USERS_DATE_TYPE,
-    //             payload: usersDate.getAllUsers,
-    //         });
-    //         if (user) {
-    //
-    //             const f = data.getAllUsers.filter((u: User) => u.id === user.id)
-    //
-    //             if (f[0] == null) {
-    //
-    //                 (async () => await execLogout({
-    //                     variables: {
-    //                         email: user?.email,
-    //                     },
-    //                 }))();
-    //                 deleteMe();
-    //             } else if (f[0].status === "block") {
-    //                 deleteMe();
-    //             }
-    //
-    //         }
-    //
-    //     }
-    //
-    // });
+    }, [data]);
+
+    const {data: reviewsDate} = useQuery(GetAllReviews, {
+        pollInterval: 5000,
+        nextFetchPolicy: "network-only",
+        onCompleted: (data) => {
+
+            dispatch({
+                type: ReviewsDateType.REVIEWS_DATE_TYPE,
+                payload: reviewsDate,
+            });
+
+
+        }
+
+    });
 
     const renderHome = (props: any) => <Home {...props} />;
 

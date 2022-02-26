@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column,  JoinColumn, OneToMany, ManyToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToMany, ManyToOne, BaseEntity} from "typeorm";
 import {Length} from "class-validator";
 import {Category} from "./Category";
 import {Photo} from "./Photo";
@@ -9,7 +9,7 @@ import {User} from "../user/User";
 
 
 @Entity({ name: "Review" })
-export class Review  {
+export class Review extends BaseEntity {
   @PrimaryGeneratedColumn({ name: "Id", type: "bigint" })
   id: string;
 
