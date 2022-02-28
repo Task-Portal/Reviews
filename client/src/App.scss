@@ -17,6 +17,11 @@
   --md-font-size: 1.25em;
 }
 
+%body_background{
+  background: rgb(217,238,238);
+  background: linear-gradient(0deg, rgba(217,238,238,0.37048322747067575) 0%, rgba(236,221,185,0.21922272326899506) 100%);
+}
+
 body {
   min-height: 75rem;
   background-image: url(../src/img/bannerBG.png);
@@ -26,19 +31,43 @@ body {
 
 }
 
-//.bootstrap_class{
-//  border-top-left-radius: 10px;
-//  border-top-right-radius: 10px;
-//  margin-top: 8rem;
-//  background: rgb(255,255,255);
-//  background: radial-gradient(circle, rgba(255,255,255,0.9783263647255778) 0%, rgba(238,226,97,0.8550770650056898) 100%);
+.format_table{
+  background: white;
+  border-radius: 10px;
+
+}
+
+.review_body_background{
+  @extend %body_background;
+  border-radius: 10px;
+  border: 3px solid cornflowerblue;
+  padding: 0.5rem;
+}
+
+
+//
+//.react-bootstrap-table {
+//  border: 3px solid #1cd2d2;
+//  border-radius: 10px;
 //
 //}
 
+//.table{
+//  margin-bottom: 0;
+//}
+
+td{
+  border-style: none !important;
+  //border-image: url("./img/border1.svg");
+ //border-color:  rgb(2,0,36);
+ //border-color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+}
+
+
+
 .navbar-toggler-icon {
   background:gold;
-
-}
+ }
 
 
 .modal-menu {

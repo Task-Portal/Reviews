@@ -1,6 +1,7 @@
 import User from "../../models/User";
+import { ReducerType } from "../ReducerType";
 
-export const UserProfileSetType = {  USER_PROFILE_SET:"USER_PROFILE_SET"};
+// export const UserProfileSetType = {  USER_PROFILE_SET:"USER_PROFILE_SET"};
 
 export interface UserProfileAction {
   type: string;
@@ -8,11 +9,11 @@ export interface UserProfileAction {
 }
 
 export const UserProfileReducer = (
-    state: any = null,
-    action: UserProfileAction
+  state: any = null,
+  action: UserProfileAction
 ): User | null => {
   switch (action.type) {
-    case UserProfileSetType.USER_PROFILE_SET:
+    case ReducerType.USER_PROFILE_SET:
       return action.payload;
     default:
       return state;

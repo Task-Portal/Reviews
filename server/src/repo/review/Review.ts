@@ -17,8 +17,8 @@ export class Review extends BaseEntity {
   @Length(5, 150)
   title: string;
 
-  @Column("varchar", { name: "Body", length: 5000, nullable: true })
-  @Length(10, 2500)
+  @Column("varchar", { name: "Body", nullable: true })
+  @Length(5, 5000)
   body: string;
 
 

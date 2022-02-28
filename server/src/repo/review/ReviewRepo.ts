@@ -13,8 +13,8 @@ export class ReviewResult {
 
 export const getAllReviews = async (): Promise<QueryArrayResult<Review>> => {
 
-    const reviews = await Review.find();
-
+    const reviews = await Review.find({relations:["category"]});
+    console.log("REviews: ", reviews)
     return {
         entities: reviews,
     };

@@ -15,7 +15,7 @@
     "rootDir": "src",
     "moduleResolution": "node",
     "removeComments": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
