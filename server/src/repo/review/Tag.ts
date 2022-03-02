@@ -1,18 +1,15 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Review} from "./Review";
-import {Length} from "class-validator";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Length } from "class-validator";
 
 @Entity({ name: "Tags" })
-export class Tag {
+export class Tag extends BaseEntity {
+  @PrimaryGeneratedColumn({ name: "Id", type: "int" })
+  id: string;
 
-    @PrimaryGeneratedColumn({ name: "Id", type: "int" })
-    id: number;
+  @Column("varchar", { name: "Title", length: 25, nullable: false })
+  @Length(2, 15)
+  title: string;
 
-    @Column("varchar", { name: "Title", length: 15, nullable: false })
-    @Length(2, 15)
-    title: string;
-
-    @ManyToOne(() => Review, review => review.tags)
-    review: Review;
-
+  // @ManyToOne(() => Review, review => review.tags)
+  // review: Review;
 }

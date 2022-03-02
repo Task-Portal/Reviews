@@ -1,21 +1,16 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Review} from "./Review";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Review } from "./Review";
 
 @Entity({ name: "Points" })
 export class Points {
+  @PrimaryGeneratedColumn({ name: "Id", type: "int" })
+  id: string;
 
-    @PrimaryGeneratedColumn({name:"Id"})
-    id: number;
+  @Column("int", { name: "Points", default: 0, nullable: false })
+  points: number;
 
-    @Column("int", { name: "Points", default: 0, nullable: false })
-    points: number;
+  //Todo should Points contain user id
 
-    //Todo should Points contain user id
-
-
-    @ManyToOne(() => Review, review => review.points)
-    review: Review;
-
-
-
+  @ManyToOne(() => Review, (review) => review.points)
+  review: Review;
 }

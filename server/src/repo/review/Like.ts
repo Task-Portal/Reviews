@@ -1,24 +1,20 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Review} from "./Review";
-import {User} from "../user/User";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Review } from "./Review";
+import { User } from "../user/User";
 
 @Entity({ name: "Likes" })
 export class Like {
+  @PrimaryGeneratedColumn({ name: "Id", type: "int" })
+  id: string;
 
-    @PrimaryGeneratedColumn({ name: "Id", type: "int" })
-    id: number;
+  @Column("boolean", { name: "Like", default: false, nullable: false })
+  like: boolean;
 
-    @Column("boolean", { name: "Like", default: false, nullable: false })
-    like: boolean;
+  //Todo should Like contain user id
 
-    //Todo should Like contain user id
+  @ManyToOne(() => Review, (review) => review.likes)
+  review: Review;
 
-
-    @ManyToOne(() => Review, review => review.likes)
-    review: Review;
-
-    @ManyToOne(() => User, user => user.likes)
-    user: User;
-
-
+  @ManyToOne(() => User, (user) => user.likes)
+  user: User;
 }

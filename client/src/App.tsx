@@ -16,6 +16,9 @@ const GetAllReviews = gql`
       category {
         name
       }
+      tags {
+        title
+      }
     }
   }
 `;

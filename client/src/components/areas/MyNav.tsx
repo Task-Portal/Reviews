@@ -119,13 +119,7 @@ const MyNav = () => {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
-              onChange={(e) =>
-                // dispatch({
-                //   type: ReducerType.SEARCH_TYPE,
-                //   payload: e.target.value,
-                // })
-                setSearchTxt(e.target.value)
-              }
+              onChange={(e) => setSearchTxt(e.target.value)}
             />
             <Button variant="outline-warning" onClick={onClick}>
               Search

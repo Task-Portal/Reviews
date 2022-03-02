@@ -1,3 +1,6 @@
 
 
 npm i prettier
+npm install react-tagcloud
+
+npm install eslint-plugin-react-hooks --save-dev to see if there is violation of react hooks in my code

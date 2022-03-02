@@ -16,6 +16,26 @@ INSERT INTO public."UserStatus" ("StatusName") VALUES ('user');
 INSERT INTO public."UserThemeMode" ("Name") VALUES ('light');
 INSERT INTO public."UserThemeMode" ("Name") VALUES ('dark');
 
+--Tags
+INSERT INTO public."Tags" ("Title") VALUES ('self-improvement');
+INSERT INTO public."Tags" ("Title") VALUES ('comedy');
+INSERT INTO public."Tags" ("Title") VALUES ('action');
+INSERT INTO public."Tags" ("Title") VALUES ('drama');
+INSERT INTO public."Tags" ("Title") VALUES ('biography');
+INSERT INTO public."Tags" ("Title") VALUES ('real story');
+INSERT INTO public."Tags" ("Title") VALUES ('habits');
+INSERT INTO public."Tags" ("Title") VALUES ('motivation');
+INSERT INTO public."Tags" ("Title") VALUES ('relations');
+INSERT INTO public."Tags" ("Title") VALUES ('fantasy');
+INSERT INTO public."Tags" ("Title") VALUES ('war');
+INSERT INTO public."Tags" ("Title") VALUES ('crime');
+INSERT INTO public."Tags" ("Title") VALUES ('education');
+INSERT INTO public."Tags" ("Title") VALUES ('mathematics');
+INSERT INTO public."Tags" ("Title") VALUES ('geography');
+INSERT INTO public."Tags" ("Title") VALUES ('Ukraine');
+INSERT INTO public."Tags" ("Title") VALUES ('politics');
+INSERT INTO public."Tags" ("Title") VALUES ('economy');
+
 
 --Users
 INSERT INTO public."Users" ("CreatedBy", "CreatedOn", "LastModifiedBy", "LastModifiedOn", "Email",
@@ -98,3 +118,17 @@ INSERT INTO public."Review" ("Title", "Body", "AuthorMark", "categoryId", "userI
 INSERT INTO public."Review" ("Title", "Body", "AuthorMark", "categoryId", "userId"
 						   ) VALUES ('Spider-Man: No Way Home',
 									 'Swinging right back to the moment that changed Peter Parker’s (Tom Holland) life in ‘Far From Home’ (2019), ‘No Way Home’ shows us why Peter’s secret is crucial. Not just to him but also to his friends and loved ones. Peter approaches Doctor Strange (Benedict Cumberbatch) to change things back to the way they were before. But as the sorcerer uses his powers to make the world forget Spider-Man’s identity, Peter gets a lot more than he bargained for.', 5, '2', '2');
+
+
+--Tags and reviews
+INSERT INTO public."review_tags_tags" ("reviewId", "tagsId") VALUES (1,1);
+INSERT INTO public."review_tags_tags" ("reviewId", "tagsId") VALUES (2,1);
+INSERT INTO public."review_tags_tags" ("reviewId", "tagsId") VALUES (3,1);
+INSERT INTO public."review_tags_tags" ("reviewId", "tagsId") VALUES (4,5);
+INSERT INTO public."review_tags_tags" ("reviewId", "tagsId") VALUES (4,6);
+INSERT INTO public."review_tags_tags" ("reviewId", "tagsId") VALUES (5,5);
+INSERT INTO public."review_tags_tags" ("reviewId", "tagsId") VALUES (5,6);
+INSERT INTO public."review_tags_tags" ("reviewId", "tagsId") VALUES (7,3);
+INSERT INTO public."review_tags_tags" ("reviewId", "tagsId") VALUES (7,6);
+INSERT INTO public."review_tags_tags" ("reviewId", "tagsId") VALUES (7,11);
+INSERT INTO public."review_tags_tags" ("reviewId", "tagsId") VALUES (8,10);

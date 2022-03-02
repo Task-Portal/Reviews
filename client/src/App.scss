@@ -1,25 +1,14 @@
 :root {
-  --min-screen-height: 1000px;
-
   --border-color: gray;
   --border: solid 0.1em var(--border-color);
-  --input-border-color: #e6ebf1;
-  --input-border: solid 3px var(--input-border-color);
-  --proceed-color: rgb(81, 142, 132);
-  --point-color: rgb(54, 69, 79);
-  --section-divider-color: rgba(115, 136, 181, 0.35);
-
-  --panel-border-thickness: 0.05em;
-  --panel-color: white;
-
-  --sm-font-size: 0.95em;
-  --sm-med-font-size: 1.1em;
-  --md-font-size: 1.25em;
 }
 
-%body_background{
-  background: rgb(217,238,238);
-  background: linear-gradient(0deg, rgba(217,238,238,0.37048322747067575) 0%, rgba(236,221,185,0.21922272326899506) 100%);
+$borderRadius: 10px;
+$window_background: white;
+
+%body_background {
+  background: rgb(217, 238, 238);
+  background: linear-gradient(0deg, rgba(217, 238, 238, 0.37048322747067575) 0%, rgba(236, 221, 185, 0.21922272326899506) 100%);
 }
 
 body {
@@ -31,43 +20,50 @@ body {
 
 }
 
-.format_table{
-  background: white;
-  border-radius: 10px;
+.format_table {
+  background: $window_background;
+  border-radius: $borderRadius
 
 }
 
-.review_body_background{
+.review_body_background {
   @extend %body_background;
-  border-radius: 10px;
+  border-radius: $borderRadius;
   border: 3px solid cornflowerblue;
   padding: 0.5rem;
 }
 
+.tabCloud {
+  background: $window_background;
+  margin-bottom: 0.5rem;
+  border-radius: $borderRadius;
+  text-align: center;
+}
 
-//
-//.react-bootstrap-table {
-//  border: 3px solid #1cd2d2;
-//  border-radius: 10px;
-//
-//}
+.onHover{
+  border-radius: 10px;
+  margin: 3px;
+  padding: 3px;
+  display: inline-block;
+  cursor: pointer;
 
-//.table{
-//  margin-bottom: 0;
-//}
-
-td{
-  border-style: none !important;
-  //border-image: url("./img/border1.svg");
- //border-color:  rgb(2,0,36);
- //border-color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  &:hover{
+    background: #f1d9d9;
+  }
+}
+.onSelected{
+  background: #f1d9d9;
 }
 
 
+td {
+  border-style: none !important;
+}
+
 
 .navbar-toggler-icon {
-  background:gold;
- }
+  background: gold;
+}
 
 
 .modal-menu {
@@ -82,7 +78,6 @@ td{
   padding: 1em 1em 1em 1em;
   z-index: 1000;
 }
-
 
 
 input[type="text"],
@@ -154,7 +149,7 @@ input[type="submit"]:hover {
   padding-top: 0.8em;
 }
 
-.menu-name{
+.menu-name {
   color: #03a9f4;
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: 400;
@@ -162,43 +157,10 @@ input[type="submit"]:hover {
 }
 
 
-.icon-fontAwesome{
+.icon-fontAwesome {
   color: gold;
 }
 
-.nav_li{
+.nav_li {
   margin-right: 1em;
-}
-
-
-
-@media screen and (orientation: portrait) and (max-width: 768px) {
-  .form-buttons {
-    grid-template-columns: 1fr;
-  }
-
-  .form-btn-left {
-    grid-column: 1;
-  }
-
-  .form-btn-right {
-    grid-column: 1;
-    margin-left: 0.5em;
-    padding-top: 0.5em;
-  }
-
-  .App {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "nav"
-      "content";
-  }
-
-  .modal-menu {
-    min-width: 60px;
-    left: 0.5em;
-    right: 0.5em;
-    top: 3.5em;
-    transform: translate(0%);
-  }
 }
