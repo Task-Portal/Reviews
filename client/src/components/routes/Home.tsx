@@ -1,16 +1,15 @@
-import React, {FC} from "react";
-import MyNav from "../areas/MyNav";
+import React, { FC } from "react";
+import MyNav from "../areas/nav/MyNav";
 import Main from "../areas/main/Main";
 import "./Home.css";
 
 const Home: FC = () => {
-
-    return (
-        <>
-            <MyNav/>
-            <Main/>
-        </>
-    );
+  return (
+    <>
+      <MyNav />
+      <Main />
+    </>
+  );
 };
 
 export default Home;

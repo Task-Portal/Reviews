@@ -36,6 +36,7 @@ const CloudTags = () => {
 
       if (reviews != undefined) {
         let t = getTagsTitle(reviews);
+        dispatch({ type: ReducerType.TAGS, payload: [...new Set(t)] });
 
         createdTags = getCountTags(t, createdTags);
 

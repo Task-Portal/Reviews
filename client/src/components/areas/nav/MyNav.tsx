@@ -1,29 +1,23 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import Registration from "../auth/Registration";
-import Login from "../auth/Login";
-import Logout from "../auth/Logout";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "../../store/AppState";
+import Registration from "../../auth/Registration";
+import Login from "../../auth/Login";
+import Logout from "../../auth/Logout";
+import { useSelector } from "react-redux";
+import { AppState } from "../../../store/AppState";
 import { faRegistered } from "@fortawesome/free-solid-svg-icons/faRegistered";
 import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
-import { Form, FormControl } from "react-bootstrap";
-import { ReducerType } from "../../store/ReducerType";
+import Finder from "./Finder";
 
 const MyNav = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
   const user = useSelector((state: AppState) => state.user);
-  const data = useSelector((state: AppState) => state.reviews);
-  const [searchTxt, setSearchTxt] = useState("");
-
-  const dispatch = useDispatch();
 
   //region Modal dialog auth windows
   const onClickToggleLogout = () => {
@@ -38,16 +32,6 @@ const MyNav = () => {
     setShowLogin(!showLogin);
   };
   //endregion
-
-  const onClick = () => {
-    const reviews = data?.filter((f) => {
-      return (
-        f.title.toLowerCase().includes(searchTxt.toLowerCase()) ||
-        f.body?.includes(searchTxt.toLowerCase())
-      );
-    });
-    dispatch({ type: ReducerType.SHOW_REVIEW_TYPE, payload: reviews });
-  };
 
   return (
     <Navbar expand="lg" fixed="top">
@@ -112,19 +96,7 @@ const MyNav = () => {
               </Nav.Link>
             ) : null}
           </Nav>
-
-          <Form className="d-flex">
-            <FormControl
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-              onChange={(e) => setSearchTxt(e.target.value)}
-            />
-            <Button variant="outline-warning" onClick={onClick}>
-              Search
-            </Button>
-          </Form>
+          <Finder />
         </Navbar.Collapse>
       </Container>
     </Navbar>
