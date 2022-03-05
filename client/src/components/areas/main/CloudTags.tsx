@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../store/AppState";
 import Review from "../../../models/Review";
 import { ReducerType } from "../../../store/ReducerType";
+import cn from "classnames";
+import Tag from "../../../models/Tag";
 
 const GetAllTags = gql`
   query GetAllTags {
@@ -36,6 +38,7 @@ const CloudTags = () => {
 
       if (reviews != undefined) {
         let t = getTagsTitle(reviews);
+
         dispatch({ type: ReducerType.TAGS, payload: [...new Set(t)] });
 
         createdTags = getCountTags(t, createdTags);
@@ -61,7 +64,7 @@ const CloudTags = () => {
         fontSize: size,
         border: `2px solid ${color}`,
       }}
-      className={tag.value === selectedTag ? "onHover onSelected" : "onHover"}
+      className={cn("onHover", { onSelected: selectedTag === tag.value })}
     >
       {tag.value}
     </span>
@@ -74,13 +77,14 @@ const CloudTags = () => {
       if (value === allTags.value) {
         arr = reviews;
       } else {
-        reviews.forEach((r) =>
-          r.tags.forEach((t) => {
-            if (t.title === value) {
-              arr.push(r);
-            }
-          })
-        );
+        // reviews.forEach((r) =>
+        //   r.tags.forEach((t) => {
+        //     if (t.title === value) {
+        //       arr.push(r);
+        //     }
+        //   })
+        // );
+        arr = getReviewsByTags(reviews, value);
       }
 
       dispatch({ type: ReducerType.SHOW_REVIEW_TYPE, payload: arr });
@@ -118,4 +122,16 @@ const getCountTags = (t: Array<string>, createdTags: any) => {
     }
   }
   return createdTags;
+};
+
+export const getReviewsByTags = (reviews: Array<Review>, value: string) => {
+  let arr: Array<Review> = [];
+  reviews.forEach((r) =>
+    r.tags.forEach((t) => {
+      if (t.title === value) {
+        arr.push(r);
+      }
+    })
+  );
+  return arr;
 };

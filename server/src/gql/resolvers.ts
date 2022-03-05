@@ -14,6 +14,8 @@ import { QueryArrayResult } from "../repo/QueryArrayResult";
 import { getAllReviews, getAllTags } from "../repo/review/ReviewRepo";
 import { Review } from "../repo/review/Review";
 import { Tag } from "../repo/review/Tag";
+import { getAllWords, saveSearchTxt } from "../repo/searchWord/SearchWordRepo";
+import { SearchWords } from "../repo/searchWord/SearchWords";
 
 declare module "express-session" {
   export interface SessionData {
@@ -122,6 +124,26 @@ const resolvers: IResolvers = {
         throw ex;
       }
     },
+    getSearchWords: async (
+      obj: any,
+      args: null,
+      ctx: GqlContext,
+      info: any
+    ): Promise<Array<SearchWords> | EntityResult> => {
+      let words: QueryArrayResult<SearchWords>;
+
+      try {
+        words = await getAllWords();
+        if (words.entities) {
+          return words.entities;
+        }
+        return {
+          messages: words.messages ? words.messages : [STANDARD_ERROR],
+        };
+      } catch (ex) {
+        throw ex;
+      }
+    },
   },
   Mutation: {
     register: async (
@@ -179,6 +201,18 @@ const resolvers: IResolvers = {
           );
         });
         return result;
+      } catch (ex) {
+        throw ex;
+      }
+    },
+    autoComplete: async (
+      obj: any,
+      args: { txt: string },
+      ctx: GqlContext,
+      info: any
+    ): Promise<string> => {
+      try {
+        return await saveSearchTxt(args.txt);
       } catch (ex) {
         throw ex;
       }

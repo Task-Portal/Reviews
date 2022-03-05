@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { gql, useQuery } from "@apollo/client";
 import Review from "./models/Review";
 import { ReducerType } from "./store/ReducerType";
+
 const GetAllReviews = gql`
   query getAllReviews {
     getAllReviews {
@@ -29,9 +30,6 @@ function App() {
   const [reviews, setReviews] = useState<Array<Review>>([]);
   const { loading, error, data } = useQuery(GetAllReviews);
   useEffect(() => {
-    console.log("ReviewsData: ", data);
-    console.log("Error: ", error);
-    console.log("Loading: ", loading);
     if (!loading) {
       setReviews(data.getAllReviews);
       dispatch({

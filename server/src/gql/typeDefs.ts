@@ -6,6 +6,10 @@ const typeDefs = gql`
   type EntityResult {
     messages: [String!]
   }
+  type SearchWords {
+    id: ID!
+    phrase: String!
+  }
 
   type Category {
     id: ID!
@@ -85,12 +89,14 @@ const typeDefs = gql`
     checkEmail(email: String!): String!
     getAllReviews: [Review!]
     getAllTags: [Tag!]
+    getSearchWords: [SearchWords!]
   }
 
   type Mutation {
     register(email: String!, userName: String!, password: String!): String!
     login(email: String!, password: String!): String!
     logout(email: String!): String!
+    autoComplete(txt: String!): String!
   }
 `;
 

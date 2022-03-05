@@ -8,4 +8,7 @@ npm install eslint-plugin-react-hooks --save-dev to see if there is violation of
 
 npm i react-search-autocomplete
 
-npm i classnames // use it or delete !!!!!!
+npm i classnames
+
+npm i --save lodash // use it or delete !!!!!!
+npm install eslint-plugin-react --save-dev
