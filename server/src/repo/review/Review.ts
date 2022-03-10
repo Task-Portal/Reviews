@@ -8,6 +8,7 @@ import {
   BaseEntity,
   ManyToMany,
   JoinTable,
+  Index,
 } from "typeorm";
 import { Length } from "class-validator";
 import { Category } from "./Category";
@@ -22,10 +23,12 @@ export class Review extends BaseEntity {
   @PrimaryGeneratedColumn({ name: "Id", type: "bigint" })
   id: string;
 
+  @Index()
   @Column("varchar", { name: "Title", length: 250, nullable: false })
   @Length(5, 150)
   title: string;
 
+  @Index()
   @Column("varchar", { name: "Body", nullable: true })
   @Length(5, 5000)
   body: string;

@@ -12,12 +12,14 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Finder from "./Finder";
+import { useHistory } from "react-router-dom";
 
 const MyNav = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
   const user = useSelector((state: AppState) => state.user);
+  const history = useHistory();
 
   //region Modal dialog auth windows
   const onClickToggleLogout = () => {
@@ -47,7 +49,7 @@ const MyNav = () => {
             navbarScroll
           >
             {user ? (
-              <Nav.Link>
+              <Nav.Link onClick={() => history.push(`/up/${user.id}`)}>
                 <FontAwesomeIcon icon={faUser} className="icon-fontAwesome" />
                 <span className="menu-name ms-sm-1">{user?.userName}</span>
               </Nav.Link>

@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { TagCloud } from "react-tagcloud";
 import { gql, useQuery } from "@apollo/client";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "../../../store/AppState";
+import { useDispatch } from "react-redux";
 import Review from "../../../models/Review";
 import { ReducerType } from "../../../store/ReducerType";
 import cn from "classnames";
-import Tag from "../../../models/Tag";
+import useSearch from "../../../hooks/useSearch";
 
 const GetAllTags = gql`
   query GetAllTags {
     getAllTags {
-      id
+      count
       title
     }
   }
 `;
 
 const allTags = { value: "All", count: 3, key: "All12" };
+type arrTags = { value: string; count: number; key: string };
 
 const CloudTags = () => {
-  const reviews = useSelector((state: AppState) => state.reviews);
-  const [tags, setTags] = useState<Array<object>>([]);
+  const [tags, setTags] = useState<Array<arrTags>>([]);
   const { loading, error, data } = useQuery(GetAllTags);
   const [selectedTag, setSelectedTag] = useState("");
   const dispatch = useDispatch();
+  const { search } = useSearch();
 
   if (error) {
     console.log("Cloud tag error: ", error);
@@ -32,30 +32,24 @@ const CloudTags = () => {
 
   useEffect(() => {
     if (!loading) {
-      let createdTags = data.getAllTags.map((t) => {
-        return { value: t.title, key: t.id, count: 0 };
+      let createdTags = data?.getAllTags.map((t) => {
+        return { value: t.title, key: t.id, count: t.count };
       });
 
-      if (reviews != undefined) {
-        let t = getTagsTitle(reviews);
+      dispatch({
+        type: ReducerType.TAGS,
+        payload: [...data?.getAllTags.map((t) => t.title)],
+      });
 
-        dispatch({ type: ReducerType.TAGS, payload: [...new Set(t)] });
+      createdTags.push({
+        value: allTags.value,
+        key: allTags.key,
+        count: allTags.count,
+      });
 
-        createdTags = getCountTags(t, createdTags);
-
-        //Todo delete if every tag has a review section
-        createdTags = createdTags.filter((t) => t.count > 0);
-
-        createdTags.push({
-          value: allTags.value,
-          key: allTags.key,
-          count: allTags.count,
-        });
-
-        setTags(createdTags);
-      }
+      setTags(createdTags);
     }
-  }, [reviews]);
+  }, [data]);
 
   const customRenderer = (tag, size, color) => (
     <span
@@ -70,25 +64,17 @@ const CloudTags = () => {
     </span>
   );
 
-  const onClick = ({ value }) => {
+  const onClick = async ({ value }) => {
     setSelectedTag(value);
-    if (reviews != undefined && reviews?.length > 0) {
-      let arr: Array<Review> = [];
-      if (value === allTags.value) {
-        arr = reviews;
-      } else {
-        // reviews.forEach((r) =>
-        //   r.tags.forEach((t) => {
-        //     if (t.title === value) {
-        //       arr.push(r);
-        //     }
-        //   })
-        // );
-        arr = getReviewsByTags(reviews, value);
-      }
 
-      dispatch({ type: ReducerType.SHOW_REVIEW_TYPE, payload: arr });
-    }
+    await search({
+      variables: {
+        tags:
+          value === allTags.value
+            ? tags.map((f) => f.value).filter((f) => f !== allTags.value)
+            : [value],
+      },
+    });
   };
 
   return tags.length > 0 ? (
@@ -104,25 +90,6 @@ const CloudTags = () => {
 };
 
 export default CloudTags;
-
-const getTagsTitle = (reviews: Array<Review>) => {
-  return reviews
-    .map((t) => {
-      return t.tags.map((s) => s.title);
-    })
-    .flat(1);
-};
-
-const getCountTags = (t: Array<string>, createdTags: any) => {
-  for (let i of t) {
-    for (let y of createdTags) {
-      if (y.value === i) {
-        y.count += 1;
-      }
-    }
-  }
-  return createdTags;
-};
 
 export const getReviewsByTags = (reviews: Array<Review>, value: string) => {
   let arr: Array<Review> = [];

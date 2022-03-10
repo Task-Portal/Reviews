@@ -11,9 +11,13 @@ import {
 } from "../repo/user/UserRepo";
 import { GqlContext } from "./GqlContext";
 import { QueryArrayResult } from "../repo/QueryArrayResult";
-import { getAllReviews, getAllTags } from "../repo/review/ReviewRepo";
+import {
+  getAllReviews,
+  getAllTags,
+  getSearchReviews,
+  tagCompoundObj,
+} from "../repo/review/ReviewRepo";
 import { Review } from "../repo/review/Review";
-import { Tag } from "../repo/review/Tag";
 import { getAllWords, saveSearchTxt } from "../repo/searchWord/SearchWordRepo";
 import { SearchWords } from "../repo/searchWord/SearchWords";
 
@@ -109,20 +113,8 @@ const resolvers: IResolvers = {
       args: null,
       ctx: GqlContext,
       info: any
-    ): Promise<Array<Tag> | EntityResult> => {
-      let tags: QueryArrayResult<Tag>;
-
-      try {
-        tags = await getAllTags();
-        if (tags.entities) {
-          return tags.entities;
-        }
-        return {
-          messages: tags.messages ? tags.messages : [STANDARD_ERROR],
-        };
-      } catch (ex) {
-        throw ex;
-      }
+    ): Promise<Array<tagCompoundObj>> => {
+      return await getAllTags();
     },
     getSearchWords: async (
       obj: any,
@@ -139,6 +131,26 @@ const resolvers: IResolvers = {
         }
         return {
           messages: words.messages ? words.messages : [STANDARD_ERROR],
+        };
+      } catch (ex) {
+        throw ex;
+      }
+    },
+    getSearchReviews: async (
+      obj: any,
+      args: { tags: Array<string>; txt: string | null },
+      ctx: GqlContext,
+      info: any
+    ): Promise<Array<Review> | EntityResult> => {
+      let reviews: QueryArrayResult<Review>;
+
+      try {
+        reviews = await getSearchReviews(args.tags, args.txt);
+        if (reviews.entities) {
+          return reviews.entities;
+        }
+        return {
+          messages: reviews.messages ? reviews.messages : [STANDARD_ERROR],
         };
       } catch (ex) {
         throw ex;
@@ -189,7 +201,7 @@ const resolvers: IResolvers = {
       info: any
     ): Promise<string> => {
       try {
-        let result = await logout(args.email);
+        const result = await logout(args.email);
         ctx.req.session?.destroy((err: any) => {
           if (err) {
             console.log("destroy session failed");

@@ -1,8 +1,6 @@
 import User from "../../models/User";
 import { ReducerType } from "../ReducerType";
 
-// export const UserProfileSetType = {  USER_PROFILE_SET:"USER_PROFILE_SET"};
-
 export interface UserProfileAction {
   type: string;
   payload: User | null;

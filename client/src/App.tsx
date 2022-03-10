@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { gql, useQuery } from "@apollo/client";
 import Review from "./models/Review";
 import { ReducerType } from "./store/ReducerType";
+import UserProfile from "./components/routes/userProfile/UserProfile";
+import PrivateRoute from "./components/routes/PrivateRoute";
 
 const GetAllReviews = gql`
   query getAllReviews {
@@ -19,6 +21,9 @@ const GetAllReviews = gql`
       }
       tags {
         title
+      }
+      user {
+        id
       }
     }
   }
@@ -36,10 +41,6 @@ function App() {
         type: ReducerType.SHOW_REVIEW_TYPE,
         payload: data.getAllReviews,
       });
-      dispatch({
-        type: ReducerType.REVIEWS_DATE_TYPE,
-        payload: data.getAllReviews,
-      });
     }
   }, [data]);
 
@@ -55,10 +56,12 @@ function App() {
   // });
 
   const renderHome = (props: any) => <Home {...props} />;
+  const renderUserProfile = (props: any) => <UserProfile {...props} />;
 
   return (
     <Switch>
       <Route exact={true} path="/" render={renderHome} />
+      <PrivateRoute path="/up/:id" component={renderUserProfile} exact />
     </Switch>
   );
 }

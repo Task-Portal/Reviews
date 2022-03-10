@@ -40,22 +40,22 @@ INSERT INTO public."Tags" ("Title") VALUES ('economy');
 --Users
 INSERT INTO public."Users" ("CreatedBy", "CreatedOn", "LastModifiedBy", "LastModifiedOn", "Email",
 						   "UserName", "Password", "statusId", "modeId", "languageId"
-						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'alex@alex.com', 'Alex', '1',1,1,1);
+						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'alex@alex.com', 'Alex', '$2a$10$7EoOrh4IDoojSK5BNzF9uO4ISuQHFfmZKn5.VJSKqbpH7x51CfgRG',1,1,1);
 
 INSERT INTO public."Users" ("CreatedBy", "CreatedOn", "LastModifiedBy", "LastModifiedOn", "Email",
 						   "UserName", "Password", "statusId", "modeId", "languageId"
-						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'john@john.com', 'John', '1',1,1,1);
+						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'john@john.com', 'John', '$2a$10$7EoOrh4IDoojSK5BNzF9uO4ISuQHFfmZKn5.VJSKqbpH7x51CfgRG',1,1,1);
 INSERT INTO public."Users" ("CreatedBy", "CreatedOn", "LastModifiedBy", "LastModifiedOn", "Email",
 						   "UserName", "Password", "statusId", "modeId", "languageId"
-						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'lena@lena.com', 'Lena', '1',1,1,1);
+						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'lena@lena.com', 'Lena', '$2a$10$7EoOrh4IDoojSK5BNzF9uO4ISuQHFfmZKn5.VJSKqbpH7x51CfgRG',1,1,1);
 
 INSERT INTO public."Users" ("CreatedBy", "CreatedOn", "LastModifiedBy", "LastModifiedOn", "Email",
 						   "UserName", "Password", "statusId", "modeId", "languageId"
-						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'merry@merry.com', 'Merry', '1',1,1,1);
+						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'merry@merry.com', 'Merry', '$2a$10$7EoOrh4IDoojSK5BNzF9uO4ISuQHFfmZKn5.VJSKqbpH7x51CfgRG',1,1,1);
 
 INSERT INTO public."Users" ("CreatedBy", "CreatedOn", "LastModifiedBy", "LastModifiedOn", "Email",
 						   "UserName", "Password", "statusId", "modeId", "languageId"
-						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'jeck@jeck.com', 'Jeka', '1',1,1,1);
+						   ) VALUES ('Alex','2020-02-22', 'Alex', '2020-02-22', 'jeck@jeck.com', 'Jeka', '$2a$10$7EoOrh4IDoojSK5BNzF9uO4ISuQHFfmZKn5.VJSKqbpH7x51CfgRG',1,1,1);
 
 --Reviews Books
 INSERT INTO public."Review" ("Title", "Body", "AuthorMark", "categoryId", "userId"

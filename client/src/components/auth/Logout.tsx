@@ -25,11 +25,11 @@ const Logout: FC<ModalProps> = ({ isOpen, onClickToggle }) => {
   const { deleteMe } = useRefreshReduxMe();
 
   const onClickLogout = async (
-      e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
     onClickToggle(e);
-
+    console.log("Logout!!!!!!!!!!!!!");
     await execLogout({
       variables: {
         email: user?.email,
@@ -39,42 +39,41 @@ const Logout: FC<ModalProps> = ({ isOpen, onClickToggle }) => {
   };
 
   const onClickCancel = (
-      e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     onClickToggle(e);
   };
 
   return (
-      <ReactModal
-          className="modal-menu"
-          isOpen={isOpen}
-          onRequestClose={onClickToggle}
-          shouldCloseOnOverlayClick={true}
-          ariaHideApp={false}
-      >
-        <form>
-          <div className="logout-inputs">Are you sure you want to logout?</div>
-          <div className="form-buttons form-buttons-sm">
-            <div className="form-btn-left">
-              <button
-                  style={{ marginLeft: ".5em",background: "deepskyblue", }}
-                  className="action-btn"
-
-                  onClick={onClickLogout}
-              >
-                Logout
-              </button>
-              <button
-                  style={{ marginLeft: ".5em" }}
-                  className="cancel-btn"
-                  onClick={onClickCancel}
-              >
-                Close
-              </button>
-            </div>
+    <ReactModal
+      className="modal-menu"
+      isOpen={isOpen}
+      onRequestClose={onClickToggle}
+      shouldCloseOnOverlayClick={true}
+      ariaHideApp={false}
+    >
+      <form>
+        <div className="logout-inputs">Are you sure you want to logout?</div>
+        <div className="form-buttons form-buttons-sm">
+          <div className="form-btn-left">
+            <button
+              style={{ marginLeft: ".5em", background: "deepskyblue" }}
+              className="action-btn"
+              onClick={onClickLogout}
+            >
+              Logout
+            </button>
+            <button
+              style={{ marginLeft: ".5em" }}
+              className="cancel-btn"
+              onClick={onClickCancel}
+            >
+              Close
+            </button>
           </div>
-        </form>
-      </ReactModal>
+        </div>
+      </form>
+    </ReactModal>
   );
 };
 

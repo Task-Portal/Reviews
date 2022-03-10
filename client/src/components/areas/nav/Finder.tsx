@@ -7,8 +7,9 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { Button, ButtonGroup, Form } from "react-bootstrap";
 import Review from "../../../models/Review";
 import { getReviewsByTags } from "../main/CloudTags";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import _ from "lodash/fp";
+import useSearch from "../../../hooks/useSearch";
 
 export const AutoCompleteMutation = gql`
   mutation autoComplete($txt: String!) {
@@ -25,22 +26,20 @@ const GetAllWords = gql`
 `;
 
 const searchTypes = { tag: "tag", word: "random" };
-const numberTags = 5;
 
 const Finder = () => {
   const [execAutocomplete] = useMutation(AutoCompleteMutation, {
     refetchQueries: [GetAllWords],
   });
   const { data } = useQuery(GetAllWords);
+  const { search } = useSearch();
 
-  const data_reviews = useSelector((state: AppState) => state.reviews);
   const tags = useSelector((state: AppState) => state.tags);
   const [searchTxt, setSearchTxt] = useState("");
   const [selectedTags, setSelectedTags] = useState<
     Array<{ id: string; name: string; desc: string }>
   >([]);
 
-  const dispatch = useDispatch();
   const tagObjects = useMemo(
     () => getTagsObjects(tags, searchTypes.tag),
     [tags]
@@ -53,15 +52,18 @@ const Finder = () => {
       ),
     [data]
   );
-
   const items = useMemo(
     () => _.concat(tagObjects, wordObjects),
     [tagObjects, wordObjects]
   );
 
   const onClick = async () => {
-    const reviews = getFilteredReviews(data_reviews, searchTxt, selectedTags);
-    dispatch({ type: ReducerType.SHOW_REVIEW_TYPE, payload: reviews });
+    await search({
+      variables: {
+        txt: searchTxt.trim(),
+        tags: selectedTags.length > 0 ? selectedTags?.map((t) => t.name) : tags,
+      },
+    });
 
     if (searchTxt.length > 2) {
       await execAutocomplete({
@@ -82,19 +84,11 @@ const Finder = () => {
 
   const handleOnSelect = (e) => {
     if (e.desc !== searchTypes.word) {
-      let flag = true;
-      selectedTags.forEach((f) => {
-        if (f.name === e.name) {
-          flag = false;
-        }
-      });
-
-      if (
-        selectedTags.length === 0 ||
-        (flag && selectedTags.length < numberTags)
-      ) {
+      if (!selectedTags.some((f) => f.name === e.name)) {
         setSelectedTags([...selectedTags, e]);
       }
+    } else {
+      setSearchTxt(e.name);
     }
   };
 
@@ -150,23 +144,5 @@ const getTagsObjects = (entity, type) => {
       name: t,
       desc: type,
     };
-  });
-};
-
-const getFilteredReviews = (data, searchTxt, selectedTags) => {
-  let arr: Array<Review> = [];
-  if (selectedTags != undefined && selectedTags.length > 0) {
-    for (let t of selectedTags) {
-      getReviewsByTags(data, t.name).map((r) => arr.push(r));
-    }
-  } else {
-    arr = data;
-  }
-
-  return arr?.filter((f) => {
-    return (
-      f.title.toLowerCase().includes(searchTxt.toLowerCase()) ||
-      f.body?.includes(searchTxt.toLowerCase())
-    );
   });
 };

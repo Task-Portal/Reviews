@@ -23,7 +23,7 @@ const Login: FC<ModalProps> = ({ isOpen, onClickToggle }) => {
 
   const [{ email, password, resultMsg, isSubmitDisabled }, dispatch] =
     useReducer(userReducer, {
-      email: "alex@alex1.com",
+      email: "alex@alex.com",
       password: "1",
       resultMsg: "",
       isSubmitDisabled: true,
