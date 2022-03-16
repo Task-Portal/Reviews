@@ -38,7 +38,10 @@ const MyNav = () => {
   return (
     <Navbar expand="lg" fixed="top">
       <Container>
-        <Navbar.Brand href="#" style={{ color: "gold" }}>
+        <Navbar.Brand
+          onClick={() => history.push(`/`)}
+          style={{ color: "gold", cursor: "pointer" }}
+        >
           Review
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />

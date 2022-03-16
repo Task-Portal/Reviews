@@ -2,4 +2,14 @@ export const ReducerType = {
   SHOW_REVIEW_TYPE: "SHOW_REVIEW_TYPE",
   USER_PROFILE_SET: "USER_PROFILE_SET",
   TAGS: "TAGS",
+  CATEGORIES: "CATEGORIES",
+};
+
+export const CreateReviewType = {
+  USER_ID: "USER_ID",
+  TITLE: "TITLE",
+  BODY: "BODY",
+  BODY_NODE: "BODY_NODE",
+  CATEGORY: "CATEGORY",
+  TAGS: "TAGS",
 };

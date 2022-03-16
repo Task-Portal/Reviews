@@ -8,10 +8,11 @@ import Review from "./models/Review";
 import { ReducerType } from "./store/ReducerType";
 import UserProfile from "./components/routes/userProfile/UserProfile";
 import PrivateRoute from "./components/routes/PrivateRoute";
+import CreateReview from "./components/routes/crudButtons/CreateReview/Create";
 
-const GetAllReviews = gql`
-  query getAllReviews {
-    getAllReviews {
+export const GetAllReviews = gql`
+  query getAllReviews($userId: String) {
+    getAllReviews(userId: $userId) {
       id
       body
       title
@@ -20,7 +21,7 @@ const GetAllReviews = gql`
         name
       }
       tags {
-        title
+        name
       }
       user {
         id
@@ -29,11 +30,25 @@ const GetAllReviews = gql`
   }
 `;
 
+export const GetAllCategories = gql`
+  query getAllCategories {
+    getAllCategories {
+      id
+      name
+    }
+  }
+`;
+
 function App() {
   const dispatch = useDispatch();
 
   const [reviews, setReviews] = useState<Array<Review>>([]);
-  const { loading, error, data } = useQuery(GetAllReviews);
+  const { loading, data } = useQuery(GetAllReviews);
+  const {
+    loading: catLoading,
+    data: categories,
+    error,
+  } = useQuery(GetAllCategories);
   useEffect(() => {
     if (!loading) {
       setReviews(data.getAllReviews);
@@ -43,6 +58,19 @@ function App() {
       });
     }
   }, [data]);
+
+  if (error) {
+    console.log("Error1: ", error);
+  }
+  useEffect(() => {
+    if (!catLoading) {
+      console.log("Categories: ", categories);
+      dispatch({
+        type: ReducerType.CATEGORIES,
+        payload: categories.getAllCategories,
+      });
+    }
+  }, [categories]);
 
   // const {data: reviewsDate} = useQuery(GetAllReviews, {
   //     pollInterval: 5000,
@@ -57,11 +85,13 @@ function App() {
 
   const renderHome = (props: any) => <Home {...props} />;
   const renderUserProfile = (props: any) => <UserProfile {...props} />;
+  const renderCreateReview = (props: any) => <CreateReview {...props} />;
 
   return (
     <Switch>
       <Route exact={true} path="/" render={renderHome} />
       <PrivateRoute path="/up/:id" component={renderUserProfile} exact />
+      <PrivateRoute path="/create/:id" component={renderCreateReview} exact />
     </Switch>
   );
 }

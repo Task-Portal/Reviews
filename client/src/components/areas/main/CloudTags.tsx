@@ -7,11 +7,11 @@ import { ReducerType } from "../../../store/ReducerType";
 import cn from "classnames";
 import useSearch from "../../../hooks/useSearch";
 
-const GetAllTags = gql`
-  query GetAllTags {
-    getAllTags {
+const GetCompoundTags = gql`
+  query GetCompoundTags {
+    getCompoundTags {
       count
-      title
+      name
     }
   }
 `;
@@ -21,7 +21,7 @@ type arrTags = { value: string; count: number; key: string };
 
 const CloudTags = () => {
   const [tags, setTags] = useState<Array<arrTags>>([]);
-  const { loading, error, data } = useQuery(GetAllTags);
+  const { loading, error, data } = useQuery(GetCompoundTags);
   const [selectedTag, setSelectedTag] = useState("");
   const dispatch = useDispatch();
   const { search } = useSearch();
@@ -32,13 +32,13 @@ const CloudTags = () => {
 
   useEffect(() => {
     if (!loading) {
-      let createdTags = data?.getAllTags.map((t) => {
-        return { value: t.title, key: t.id, count: t.count };
+      let createdTags = data?.getCompoundTags.map((t) => {
+        return { value: t.name, key: t.id, count: t.count };
       });
 
       dispatch({
         type: ReducerType.TAGS,
-        payload: [...data?.getAllTags.map((t) => t.title)],
+        payload: [...data?.getCompoundTags.map((t) => t.name)],
       });
 
       createdTags.push({
@@ -95,7 +95,7 @@ export const getReviewsByTags = (reviews: Array<Review>, value: string) => {
   let arr: Array<Review> = [];
   reviews.forEach((r) =>
     r.tags.forEach((t) => {
-      if (t.title === value) {
+      if (t.name === value) {
         arr.push(r);
       }
     })

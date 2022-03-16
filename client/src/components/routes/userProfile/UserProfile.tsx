@@ -6,16 +6,25 @@ import { ReducerType } from "../../../store/ReducerType";
 import Table from "../../areas/main/Table";
 import Container from "react-bootstrap/Container";
 import CrudButtons from "../../areas/userProfile/CrudButtons";
+import { useQuery } from "@apollo/client";
+import { GetAllReviews } from "../../../App";
 
 const UserProfile: FC = () => {
-  // const reviews = useSelector((state: AppState) => state.reviews);
   const user = useSelector((state: AppState) => state.user);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   let r = reviews?.filter((r) => r.user.id === user?.id);
-  //   console.log(r);
-  //   dispatch({ type: ReducerType.SHOW_REVIEW_TYPE, payload: r });
-  // }, [reviews]);
+  const { loading, error, data } = useQuery(GetAllReviews, {
+    variables: { userId: user?.id },
+    // fetchPolicy: "network-only",
+  });
+
+  useEffect(() => {
+    if (data && data.getAllReviews) {
+      dispatch({
+        type: ReducerType.SHOW_REVIEW_TYPE,
+        payload: data.getAllReviews,
+      });
+    }
+  }, [data]);
 
   return (
     <>

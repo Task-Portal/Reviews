@@ -17,24 +17,24 @@ INSERT INTO public."UserThemeMode" ("Name") VALUES ('light');
 INSERT INTO public."UserThemeMode" ("Name") VALUES ('dark');
 
 --Tags
-INSERT INTO public."Tags" ("Title") VALUES ('self-improvement');
-INSERT INTO public."Tags" ("Title") VALUES ('comedy');
-INSERT INTO public."Tags" ("Title") VALUES ('action');
-INSERT INTO public."Tags" ("Title") VALUES ('drama');
-INSERT INTO public."Tags" ("Title") VALUES ('biography');
-INSERT INTO public."Tags" ("Title") VALUES ('real story');
-INSERT INTO public."Tags" ("Title") VALUES ('habits');
-INSERT INTO public."Tags" ("Title") VALUES ('motivation');
-INSERT INTO public."Tags" ("Title") VALUES ('relations');
-INSERT INTO public."Tags" ("Title") VALUES ('fantasy');
-INSERT INTO public."Tags" ("Title") VALUES ('war');
-INSERT INTO public."Tags" ("Title") VALUES ('crime');
-INSERT INTO public."Tags" ("Title") VALUES ('education');
-INSERT INTO public."Tags" ("Title") VALUES ('mathematics');
-INSERT INTO public."Tags" ("Title") VALUES ('geography');
-INSERT INTO public."Tags" ("Title") VALUES ('Ukraine');
-INSERT INTO public."Tags" ("Title") VALUES ('politics');
-INSERT INTO public."Tags" ("Title") VALUES ('economy');
+INSERT INTO public."Tags" ("Name") VALUES ('self-improvement');
+INSERT INTO public."Tags" ("Name") VALUES ('comedy');
+INSERT INTO public."Tags" ("Name") VALUES ('action');
+INSERT INTO public."Tags" ("Name") VALUES ('drama');
+INSERT INTO public."Tags" ("Name") VALUES ('biography');
+INSERT INTO public."Tags" ("Name") VALUES ('real story');
+INSERT INTO public."Tags" ("Name") VALUES ('habits');
+INSERT INTO public."Tags" ("Name") VALUES ('motivation');
+INSERT INTO public."Tags" ("Name") VALUES ('relations');
+INSERT INTO public."Tags" ("Name") VALUES ('fantasy');
+INSERT INTO public."Tags" ("Name") VALUES ('war');
+INSERT INTO public."Tags" ("Name") VALUES ('crime');
+INSERT INTO public."Tags" ("Name") VALUES ('education');
+INSERT INTO public."Tags" ("Name") VALUES ('mathematics');
+INSERT INTO public."Tags" ("Name") VALUES ('geography');
+INSERT INTO public."Tags" ("Name") VALUES ('Ukraine');
+INSERT INTO public."Tags" ("Name") VALUES ('politics');
+INSERT INTO public."Tags" ("Name") VALUES ('economy');
 
 
 --Users

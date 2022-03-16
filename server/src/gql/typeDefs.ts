@@ -22,12 +22,12 @@ const typeDefs = gql`
   }
   type Tag {
     id: ID!
-    title: String!
+    name: String!
   }
 
   type CompoundTag {
     count: String!
-    title: String!
+    name: String!
   }
   type Points {
     id: ID!
@@ -91,9 +91,11 @@ const typeDefs = gql`
   type Query {
     me: UserResult!
     checkEmail(email: String!): String!
-    getAllReviews: [Review!]
+    getAllReviews(userId: String): [Review!]
     getSearchReviews(tags: [String!], txt: String): [Review]
-    getAllTags: [CompoundTag!]
+    getCompoundTags: [CompoundTag!]
+    getAllCategories: [Category!]
+    getAllTags: [Tag!]
     getSearchWords: [SearchWords!]
   }
 

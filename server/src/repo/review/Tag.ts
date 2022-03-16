@@ -6,9 +6,9 @@ export class Tag extends BaseEntity {
   @PrimaryGeneratedColumn({ name: "Id", type: "int" })
   id: string;
 
-  @Column("varchar", { name: "Title", length: 25, nullable: false })
+  @Column("varchar", { name: "Name", length: 25, nullable: false })
   @Length(2, 15)
-  title: string;
+  name: string;
 
   // @ManyToOne(() => Review, review => review.tags)
   // review: Review;

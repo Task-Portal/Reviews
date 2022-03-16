@@ -14,12 +14,16 @@ import { QueryArrayResult } from "../repo/QueryArrayResult";
 import {
   getAllReviews,
   getAllTags,
+  getCompoundTags,
   getSearchReviews,
   tagCompoundObj,
 } from "../repo/review/ReviewRepo";
 import { Review } from "../repo/review/Review";
 import { getAllWords, saveSearchTxt } from "../repo/searchWord/SearchWordRepo";
 import { SearchWords } from "../repo/searchWord/SearchWords";
+import { Category } from "../repo/review/Category";
+import { getAllCategories } from "../repo/review/CategoryRepo";
+import { Tag } from "../repo/review/Tag";
 
 declare module "express-session" {
   export interface SessionData {
@@ -90,14 +94,13 @@ const resolvers: IResolvers = {
     },
     getAllReviews: async (
       obj: any,
-      args: null,
+      args: { userId: string | undefined },
       ctx: GqlContext,
       info: any
     ): Promise<Array<Review> | EntityResult> => {
       let reviews: QueryArrayResult<Review>;
-
       try {
-        reviews = await getAllReviews();
+        reviews = await getAllReviews(args.userId);
         if (reviews.entities) {
           return reviews.entities;
         }
@@ -108,13 +111,57 @@ const resolvers: IResolvers = {
         throw ex;
       }
     },
-    getAllTags: async (
+    getCompoundTags: async (
       obj: any,
       args: null,
       ctx: GqlContext,
       info: any
     ): Promise<Array<tagCompoundObj>> => {
-      return await getAllTags();
+      return await getCompoundTags();
+    },
+    // Todo check if I can use without obj, args, ctx
+    getAllCategories: async (
+      obj: any,
+      args: null,
+      ctx: GqlContext,
+      info: any
+    ): Promise<Array<Category> | EntityResult> => {
+      let categories: QueryArrayResult<Category>;
+
+      try {
+        categories = await getAllCategories();
+        if (categories.entities) {
+          return categories.entities;
+        }
+        return {
+          messages: categories.messages
+            ? categories.messages
+            : [STANDARD_ERROR],
+        };
+      } catch (ex) {
+        throw ex;
+      }
+    },
+    getAllTags: async (
+      obj: any,
+      args: null,
+      ctx: GqlContext,
+      info: any
+    ): Promise<Array<Tag> | EntityResult> => {
+      let tags: QueryArrayResult<Tag>;
+
+      try {
+        tags = await getAllTags();
+        console.log("tags from resolvers: ", tags);
+        if (tags.entities) {
+          return tags.entities;
+        }
+        return {
+          messages: tags.messages ? tags.messages : [STANDARD_ERROR],
+        };
+      } catch (ex) {
+        throw ex;
+      }
     },
     getSearchWords: async (
       obj: any,

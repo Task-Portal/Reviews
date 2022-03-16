@@ -13,7 +13,7 @@ const GetSearchReviews = gql`
         name
       }
       tags {
-        title
+        name
       }
       user {
         id
