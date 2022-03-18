@@ -4,6 +4,7 @@ import Review from "../../../models/Review";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../store/AppState";
 import BootstrapTable from "react-bootstrap-table-next";
+import RichEditor from "../../editor/RichEditor";
 
 const columns = [
   {
@@ -37,7 +38,13 @@ const Table = () => {
   const expandRow = {
     renderer: (row) =>
       user ? (
-        <div className="review_body_background">{row.body}</div>
+        <div className="review_body_background">
+          <RichEditor
+            existingBody={row.body}
+            readOnly={true}
+            // sendOutBody={receiveBody}
+          />
+        </div>
       ) : (
         <span style={{ background: "yellow" }}>
           First login to see description

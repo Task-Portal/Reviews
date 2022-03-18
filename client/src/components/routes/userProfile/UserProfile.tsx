@@ -14,7 +14,7 @@ const UserProfile: FC = () => {
   const dispatch = useDispatch();
   const { loading, error, data } = useQuery(GetAllReviews, {
     variables: { userId: user?.id },
-    // fetchPolicy: "network-only",
+    fetchPolicy: "network-only",
   });
 
   useEffect(() => {

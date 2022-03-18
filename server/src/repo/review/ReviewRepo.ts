@@ -3,12 +3,17 @@ import { QueryArrayResult } from "../QueryArrayResult";
 // import { getConnection, In, Like } from "typeorm";
 import { Brackets, getConnection } from "typeorm";
 import { Tag } from "./Tag";
+import { User } from "../user/User";
+import { Category } from "./Category";
 
 export class ReviewResult {
-  constructor(public messages?: Array<string>, public review?: [Review]) {}
+  constructor(public messages?: Array<string>, public review?: Review) {}
 }
 
 export type tagCompoundObj = { count: string; name: string };
+
+// const MSG_SUCCESS = "Review successfully created";
+// const MSG_ERROR = "Review was not created";
 
 export const getAllReviews = async (
   userId?: string
@@ -104,5 +109,51 @@ export const getAllTags = async (): Promise<QueryArrayResult<Tag>> => {
   let tags = await Tag.find();
   return {
     entities: tags,
+  };
+};
+
+export const createReview = async (
+  userId: string,
+  id: string,
+  title: string,
+  body: string,
+  tags: Array<string>,
+  categoryId: string,
+  authorMark: number
+  // photos: Array<Photo>
+): Promise<ReviewResult> => {
+  const t = await Tag.findByIds(tags);
+  const u = await User.findOne(userId);
+  const c = await Category.findOne(categoryId);
+
+  // review.photos = photos;
+  try {
+    const review = new Review();
+    review.id = id;
+    review.user = u!;
+    review.title = title;
+    review.body = body;
+    review.tags = t;
+    review.category = c!;
+    review.authorMark = authorMark;
+
+    const reviewEntity = await Review.create(review).save();
+
+    if (!reviewEntity) {
+      return {
+        messages: ["Review was not created"],
+      };
+    }
+
+    return {
+      review: reviewEntity,
+    };
+  } catch (e) {
+    console.error("Error: ", e);
+    return { messages: [e] };
+  }
+
+  return {
+    messages: ["Failed to create Review ."],
   };
 };

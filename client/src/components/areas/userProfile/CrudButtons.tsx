@@ -24,7 +24,7 @@ const CrudButtons = () => {
   };
 
   return (
-    <ButtonGroup className="crudBtn">
+    <ButtonGroup className="buttons">
       <Button variant="secondary" name={btnTypes.create} onClick={btnHandler}>
         Create
       </Button>

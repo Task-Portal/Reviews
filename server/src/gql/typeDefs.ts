@@ -57,6 +57,7 @@ const typeDefs = gql`
     status: String!
     user: User!
   }
+
   type Review {
     id: ID!
     title: String!
@@ -93,8 +94,8 @@ const typeDefs = gql`
     checkEmail(email: String!): String!
     getAllReviews(userId: String): [Review!]
     getSearchReviews(tags: [String!], txt: String): [Review]
-    getCompoundTags: [CompoundTag!]
-    getAllCategories: [Category!]
+    getCompoundTags: [CompoundTag]!
+    getAllCategories: [Category]!
     getAllTags: [Tag!]
     getSearchWords: [SearchWords!]
   }
@@ -104,6 +105,16 @@ const typeDefs = gql`
     login(email: String!, password: String!): String!
     logout(email: String!): String!
     autoComplete(txt: String!): String!
+    createReview(
+      userId: String!
+      id: String!
+      title: String!
+      body: String!
+      authorMark: Int
+      categoryId: String!
+      tags: [String] #              photos: [PhotoInput]
+    ): #    ): ReviewResult!
+    EntityResult!
   }
 `;
 

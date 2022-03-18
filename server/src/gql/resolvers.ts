@@ -12,10 +12,12 @@ import {
 import { GqlContext } from "./GqlContext";
 import { QueryArrayResult } from "../repo/QueryArrayResult";
 import {
+  createReview,
   getAllReviews,
   getAllTags,
   getCompoundTags,
   getSearchReviews,
+  ReviewResult,
   tagCompoundObj,
 } from "../repo/review/ReviewRepo";
 import { Review } from "../repo/review/Review";
@@ -152,7 +154,7 @@ const resolvers: IResolvers = {
 
       try {
         tags = await getAllTags();
-        console.log("tags from resolvers: ", tags);
+
         if (tags.entities) {
           return tags.entities;
         }
@@ -272,6 +274,47 @@ const resolvers: IResolvers = {
     ): Promise<string> => {
       try {
         return await saveSearchTxt(args.txt);
+      } catch (ex) {
+        throw ex;
+      }
+    },
+    createReview: async (
+      obj: any,
+      args: {
+        userId: string;
+        id: string;
+        title: string;
+        body: string;
+        tags: Array<string>;
+        categoryId: string;
+        authorMark: number;
+        // photos: Array<Photo>;
+      },
+      ctx: GqlContext,
+      info: any
+    ): Promise<EntityResult> => {
+      let review: ReviewResult;
+
+      try {
+        review = await createReview(
+          args.userId,
+          args.id,
+          args.title,
+          args.body,
+          args.tags,
+          args.categoryId,
+          args.authorMark
+          // args.photos
+        );
+
+        if (review && review.review) {
+          return {
+            messages: ["200"],
+          };
+        }
+        return {
+          messages: review.messages ? review.messages : [STANDARD_ERROR],
+        };
       } catch (ex) {
         throw ex;
       }

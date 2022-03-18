@@ -4,15 +4,23 @@ import Container from "react-bootstrap/Container";
 import RichEditor from "../../../editor/RichEditor";
 import { Node } from "slate";
 import ReviewTitle from "./ReviewTitle";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../store/AppState";
 import ItemDropDown from "./ItemDropDown";
 import Category from "../../../../models/Category";
-import { useQuery } from "@apollo/client";
-import { GetAllTags } from "../../../../gql/gql_functions";
+import { useMutation, useQuery } from "@apollo/client";
+import {
+  Create,
+  GetAllTags,
+  RegisterMutation,
+} from "../../../../gql/gql_functions";
 import Tag from "../../../../models/Tag";
 import Item from "../../../../models/CompoundModels/Item";
 import FileUploader from "./FileUploader";
+import { ReducerType } from "../../../../store/ReducerType";
+import Review from "../../../../models/Review";
+import { useHistory } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 // interface ThreadBodyProps {
 //   body?: string;
@@ -22,55 +30,83 @@ import FileUploader from "./FileUploader";
 
 const marks = [1, 2, 3, 4, 5];
 
-interface ReviewFormTypes {
+export interface ReviewFormTypes {
+  id: string;
   userId: string;
   title: string;
   body_node: Node[] | undefined;
   body: any;
-  tags: Array<Tag>;
-  category: Category;
+  tags: Array<Item>;
+  categoryId: string;
   photos: File[];
   authorMark: number;
 }
 
 const CreateReview: FC = () => {
   const user = useSelector((state: AppState) => state.user);
+  const history = useHistory();
   const [values, setValues] = useState<ReviewFormTypes>({
+    id: "0",
     userId: user?.id ?? "0",
-    title: "",
+    title: "Title 1",
     body_node: undefined,
     body: "",
     tags: [],
-    category: new Category("0", "noname"),
+    categoryId: "",
     photos: [],
     authorMark: 0,
   });
 
   const categories = useSelector((state: AppState) => state.categories);
-  const { error, data: allTags } = useQuery(GetAllTags, {
+  const { data: allTags } = useQuery(GetAllTags, {
     fetchPolicy: "cache-first",
   });
+  const [execCreate] = useMutation(Create);
 
   const [postMsg, setPostMsg] = useState("");
 
-  console.log("Values: ", values);
   const receiveBody = (text: Node[]) => {
-    // const m = getTextFromNodes(text);
-    // setValues({ ...values, body: m });
-    // setValues({ ...values, body_node: text, body: m });
     setValues({ ...values, body_node: text });
   };
 
   const updateUploadedFiles = (files) =>
     setValues({ ...values, photos: files });
 
-  const onClick = () => {
-    // setPostMsg("")
-    if (values.title === "") setPostMsg("The title is empty.");
-    else if (values.body_node?.length == 0 || values.body_node == undefined) {
+  const onClick = async () => {
+    setPostMsg("");
+    if (values.title === "") {
+      setPostMsg("The title is empty.");
+      return;
+    } else if (
+      values.body_node?.length === 0 ||
+      values.body_node === undefined
+    ) {
       setPostMsg("The body is empty.");
+      return;
     }
-    console.log("Reviews created!!!");
+
+    const variables = {
+      userId: values.userId,
+      id: values.id,
+      title: values.title,
+      body: JSON.stringify(values.body_node),
+      tags: [...values.tags.map((t) => t.value)],
+      categoryId: values.categoryId,
+      authorMark: values.authorMark,
+      // photos: values.photos,
+    };
+    try {
+      const result = await execCreate({ variables });
+      if (result && result.data && result.data.createReview.messages) {
+        if (result.data.createReview.messages[0] === "200") {
+          history.goBack();
+        } else {
+          setPostMsg(result.data.createReview.messages[0]);
+        }
+      }
+    } catch (ex) {
+      console.log(ex);
+    }
   };
 
   return (
@@ -85,22 +121,17 @@ const CreateReview: FC = () => {
         />
         <div className="titles_create">Body</div>
         <div className="body">
-          <RichEditor
-            existingBody={values.body}
-            // readOnly={readOnly}
-            sendOutBody={receiveBody}
-          />
+          <RichEditor existingBody={values.body} sendOutBody={receiveBody} />
         </div>
 
         {categories && (
           <>
             <div className="titles_create">Category</div>
             <ItemDropDown
-              // sendOutSelectedItem={receiveCategory}
               sendOutSelectedItem={(c) =>
                 setValues({
                   ...values,
-                  category: new Category(c.value, c.label),
+                  categoryId: c.value,
                 })
               }
               items={categories.map((c) => new Item(c.id, c.name))}
@@ -136,7 +167,11 @@ const CreateReview: FC = () => {
           items={marks.map((t) => new Item(`${t}`, `${t}`))}
           multiple={false}
         />
-        <button onClick={onClick}>Create Reveiw</button>
+        <Button variant="secondary" onClick={onClick} className="buttons">
+          Create Review
+        </Button>
+
+        <strong style={{ color: "red" }}>{postMsg}</strong>
       </Container>
     </>
   );
