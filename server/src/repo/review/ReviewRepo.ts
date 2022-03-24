@@ -5,6 +5,7 @@ import { Brackets, getConnection } from "typeorm";
 import { Tag } from "./Tag";
 import { User } from "../user/User";
 import { Category } from "./Category";
+import { EntityResult } from "../../gql/resolvers";
 
 export class ReviewResult {
   constructor(public messages?: Array<string>, public review?: Review) {}
@@ -152,8 +153,11 @@ export const createReview = async (
     console.error("Error: ", e);
     return { messages: [e] };
   }
+};
 
+export const deleteReview = async (reviewId: string): Promise<EntityResult> => {
+  await Review.delete({ id: reviewId });
   return {
-    messages: ["Failed to create Review ."],
+    messages: ["Deleted successfully..."],
   };
 };

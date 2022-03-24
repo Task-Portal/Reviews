@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import Select from "react-select";
 import Item from "../../../../models/CompoundModels/Item";
 import makeAnimated from "react-select/animated";
@@ -11,14 +11,18 @@ class ItemDropDownProps {
   sendOutSelectedItem?: (item: Item) => void;
   items?: Item[];
   multiple?: boolean;
+  selectedItemsDefault?: Item[];
 }
 
 const ItemDropDown: FC<ItemDropDownProps> = ({
   sendOutSelectedItem,
   items,
   multiple,
+  selectedItemsDefault,
 }) => {
+  // const [selectedItem, setSelectedItem]=useState<Array<Item>>(items||[])
   const onChangeSelect = (selected: any) => {
+    // setSelectedItem(selected)
     if (sendOutSelectedItem) sendOutSelectedItem(selected);
   };
 
@@ -30,6 +34,7 @@ const ItemDropDown: FC<ItemDropDownProps> = ({
         onChange={(e) => onChangeSelect(e)}
         components={animatedComponents}
         placeholder={defaultLabel}
+        value={selectedItemsDefault}
       />
     </div>
   );

@@ -8,8 +8,8 @@ import Review from "./models/Review";
 import { ReducerType } from "./store/ReducerType";
 import UserProfile from "./components/routes/userProfile/UserProfile";
 import PrivateRoute from "./components/routes/PrivateRoute";
-import CreateReview from "./components/routes/crudButtons/CreateReview/Create";
-
+import CreateReview from "./components/routes/crudButtons/CreateReview/CreateReview";
+import EditReview from "./components/routes/crudButtons/EditReview";
 export const GetAllReviews = gql`
   query getAllReviews($userId: String) {
     getAllReviews(userId: $userId) {
@@ -25,6 +25,7 @@ export const GetAllReviews = gql`
       }
       user {
         id
+        userName
       }
     }
   }
@@ -86,12 +87,14 @@ function App() {
   const renderHome = (props: any) => <Home {...props} />;
   const renderUserProfile = (props: any) => <UserProfile {...props} />;
   const renderCreateReview = (props: any) => <CreateReview {...props} />;
+  const renderEditReview = (props: any) => <EditReview {...props} />;
 
   return (
     <Switch>
       <Route exact={true} path="/" render={renderHome} />
       <PrivateRoute path="/up/:id" component={renderUserProfile} exact />
       <PrivateRoute path="/create/:id" component={renderCreateReview} exact />
+      <PrivateRoute path="/edit/:id" component={renderEditReview} exact />
     </Switch>
   );
 }

@@ -3,6 +3,7 @@ export const ReducerType = {
   USER_PROFILE_SET: "USER_PROFILE_SET",
   TAGS: "TAGS",
   CATEGORIES: "CATEGORIES",
+  SELECTED_REVIEW: "SELECTED_REVIEW",
 };
 
 export const CreateReviewType = {

@@ -2,6 +2,14 @@ import { gql } from "apollo-server-express";
 
 const typeDefs = gql`
   scalar Date
+  scalar Upload
+
+  type UploadedFileResponse {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+    url: String!
+  }
 
   type EntityResult {
     messages: [String!]
@@ -112,9 +120,12 @@ const typeDefs = gql`
       body: String!
       authorMark: Int
       categoryId: String!
-      tags: [String] #              photos: [PhotoInput]
-    ): #    ): ReviewResult!
-    EntityResult!
+      tags: [String]
+    ): EntityResult!
+    deleteReview(reviewId: String!): EntityResult!
+
+    singleUpload(file: Upload!): UploadedFileResponse!
+    multipleUpload(files: [Upload!]!): UploadedFileResponse!
   }
 `;
 

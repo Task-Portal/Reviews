@@ -13,6 +13,7 @@ import { GqlContext } from "./GqlContext";
 import { QueryArrayResult } from "../repo/QueryArrayResult";
 import {
   createReview,
+  deleteReview,
   getAllReviews,
   getAllTags,
   getCompoundTags,
@@ -26,6 +27,9 @@ import { SearchWords } from "../repo/searchWord/SearchWords";
 import { Category } from "../repo/review/Category";
 import { getAllCategories } from "../repo/review/CategoryRepo";
 import { Tag } from "../repo/review/Tag";
+//import { s3Uploader } from "../index";
+//Todo fix it
+// const { avatarUploader } = require("../aws/uploaders");
 
 declare module "express-session" {
   export interface SessionData {
@@ -34,7 +38,7 @@ declare module "express-session" {
 }
 const STANDARD_ERROR = "An error has occurred";
 
-interface EntityResult {
+export interface EntityResult {
   messages: Array<string>;
 }
 
@@ -319,6 +323,35 @@ const resolvers: IResolvers = {
         throw ex;
       }
     },
+    deleteReview: async (
+      obj: any,
+      args: {
+        reviewId: string;
+      },
+      ctx: GqlContext,
+      info: any
+    ): Promise<EntityResult> => {
+      let review: ReviewResult;
+      try {
+        review = await deleteReview(args.reviewId);
+
+        return {
+          messages: review.messages ? review.messages : [STANDARD_ERROR],
+        };
+      } catch (ex) {
+        throw ex;
+      }
+    },
+
+    // singleUpload: async (parent, { file }) => {
+    //   const { filename, mimetype, encoding } = await file;
+    //
+    //   // Do work 💪
+    //
+    //   return { filename, mimetype, encoding, url: "" };
+    // },
+    // singleUpload: s3Uploader.singleFileUploadResolver.bind(s3Uploader),
+    // multipleUpload: s3Uploader.multipleUploadsResolver.bind(s3Uploader),
   },
 };
 

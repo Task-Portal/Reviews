@@ -8,10 +8,17 @@ import { ApolloServer, makeExecutableSchema } from "apollo-server-express";
 import typeDefs from "./gql/typeDefs";
 import resolvers from "./gql/resolvers";
 import cors from "cors";
+import { AWSS3Uploader } from "./aws/uploaders/s3";
 // import { loadEnv } from "./common/envLoader";
 // loadEnv();
 
 require("dotenv").config();
+export const s3Uploader = new AWSS3Uploader({
+  accessKeyId: process.env.AWS_ACCESS_KEY!,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  destinationBucketName: process.env.AWS_S3_BUCKET!,
+  region: process.env.AWS_S3_REGION,
+});
 
 const main = async () => {
   const app = express();
@@ -31,16 +38,16 @@ const main = async () => {
     //password: process.env.REDIS_PASSWORD,
   });
 
-    redis.on("error", function (err) {
-        console.log("Could not establish a connection with redis. " + err);
-    });
-    redis.on("connect", function (err) {
-        console.log("Connected to redis successfully");
-    });
-    const RedisStore = connectRedis(session);
-    const redisStore = new RedisStore({
-        client: redis,
-    });
+  redis.on("error", function (err) {
+    console.log("Could not establish a connection with redis. " + err);
+  });
+  redis.on("connect", function (err) {
+    console.log("Connected to redis successfully");
+  });
+  const RedisStore = connectRedis(session);
+  const redisStore = new RedisStore({
+    client: redis,
+  });
   app.use(bodyParser.json());
   app.use(
     session({

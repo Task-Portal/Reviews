@@ -52,7 +52,6 @@ const RichEditor: FC<RichEditorProps> = ({
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
   useEffect(() => {
-    console.log("existingBody", existingBody);
     if (existingBody) {
       setValue(JSON.parse(existingBody));
     }

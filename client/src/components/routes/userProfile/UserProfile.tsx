@@ -19,6 +19,7 @@ const UserProfile: FC = () => {
 
   useEffect(() => {
     if (data && data.getAllReviews) {
+      console.log("");
       dispatch({
         type: ReducerType.SHOW_REVIEW_TYPE,
         payload: data.getAllReviews,

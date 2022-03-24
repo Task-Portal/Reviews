@@ -4,7 +4,7 @@ import { faSignInAlt, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import Registration from "../../auth/Registration";
 import Login from "../../auth/Login";
 import Logout from "../../auth/Logout";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../store/AppState";
 import { faRegistered } from "@fortawesome/free-solid-svg-icons/faRegistered";
 import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
@@ -13,6 +13,9 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Finder from "./Finder";
 import { useHistory } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { GetAllReviews } from "../../../App";
+import { ReducerType } from "../../../store/ReducerType";
 
 const MyNav = () => {
   const [showRegister, setShowRegister] = useState(false);
@@ -20,6 +23,8 @@ const MyNav = () => {
   const [showLogout, setShowLogout] = useState(false);
   const user = useSelector((state: AppState) => state.user);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { data, refetch } = useQuery(GetAllReviews);
 
   //region Modal dialog auth windows
   const onClickToggleLogout = () => {
@@ -35,11 +40,21 @@ const MyNav = () => {
   };
   //endregion
 
+  const onClick = () => {
+    refetch();
+    dispatch({
+      type: ReducerType.SHOW_REVIEW_TYPE,
+      payload: data.getAllReviews,
+    });
+
+    history.push(`/`);
+  };
+
   return (
-    <Navbar expand="lg" fixed="top">
+    <Navbar expand="lg" fixed="top" bg="black">
       <Container>
         <Navbar.Brand
-          onClick={() => history.push(`/`)}
+          onClick={onClick}
           style={{ color: "gold", cursor: "pointer" }}
         >
           Review

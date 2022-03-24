@@ -40,3 +40,11 @@ export const Create = gql`
     }
   }
 `;
+
+export const DeleteReview = gql`
+  mutation deleteReview($reviewId: String!) {
+    deleteReview(reviewId: $reviewId) {
+      messages
+    }
+  }
+`;

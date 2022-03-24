@@ -14,12 +14,14 @@ npm i --save lodash // use it or delete !!!!!!
 npm install eslint-plugin-react --save-dev
 
 npm i slate slate-react slate-history emotion is-hotkey @types/is-hotkey @types/slate @types/slate-react
-(npm i slate@0.58.4  slate-react@0.58.4 slate-history@0.58.4 emotion@10.0.27  is-hotkey@0.1.6 @types/is-hotkey@0.1.1  @type
- s/slate@0.47.7  @types/slate-react@0.22.9)
+(npm i slate@0.58.4  slate-react@0.58.4 slate-history@0.58.4 emotion@10.0.27  is-hotkey@0.1.6 @types/is-hotkey@0.1.1
+ @types/slate@0.47.7  @types/slate-react@0.22.9)
 
 
  npm i --save react-select
 
+npm i --save aws-sdk
 
- npm i file-upload-with-preview  ???
+client
+ npm install apollo-upload-client@12.1.0
 

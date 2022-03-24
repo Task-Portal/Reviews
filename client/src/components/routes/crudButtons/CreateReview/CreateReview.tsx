@@ -34,27 +34,28 @@ export interface ReviewFormTypes {
   id: string;
   userId: string;
   title: string;
-  body_node: Node[] | undefined;
+  body_node: Node[];
   body: any;
   tags: Array<Item>;
-  categoryId: string;
+  category: Category;
   photos: File[];
   authorMark: number;
 }
 
-const CreateReview: FC = () => {
+const CreateReview: FC<ReviewFormTypes | null> = (props) => {
+  console.log("Props in CreateReview: ", props);
   const user = useSelector((state: AppState) => state.user);
   const history = useHistory();
   const [values, setValues] = useState<ReviewFormTypes>({
-    id: "0",
+    id: props.id ?? "0",
     userId: user?.id ?? "0",
-    title: "Title 1",
-    body_node: undefined,
-    body: "",
-    tags: [],
-    categoryId: "",
-    photos: [],
-    authorMark: 0,
+    title: props.title,
+    body_node: props.body_node,
+    body: props.body,
+    tags: props.tags,
+    category: props.category,
+    photos: props.photos,
+    authorMark: props.authorMark,
   });
 
   const categories = useSelector((state: AppState) => state.categories);
@@ -62,6 +63,7 @@ const CreateReview: FC = () => {
     fetchPolicy: "cache-first",
   });
   const [execCreate] = useMutation(Create);
+  const dispatch = useDispatch();
 
   const [postMsg, setPostMsg] = useState("");
 
@@ -91,14 +93,19 @@ const CreateReview: FC = () => {
       title: values.title,
       body: JSON.stringify(values.body_node),
       tags: [...values.tags.map((t) => t.value)],
-      categoryId: values.categoryId,
+      categoryId: values.category?.id,
       authorMark: values.authorMark,
       // photos: values.photos,
     };
+
     try {
       const result = await execCreate({ variables });
       if (result && result.data && result.data.createReview.messages) {
         if (result.data.createReview.messages[0] === "200") {
+          dispatch({
+            type: ReducerType.SELECTED_REVIEW,
+            payload: null,
+          });
           history.goBack();
         } else {
           setPostMsg(result.data.createReview.messages[0]);
@@ -109,11 +116,19 @@ const CreateReview: FC = () => {
     }
   };
 
+  const onReturn = () => {
+    dispatch({
+      type: ReducerType.SELECTED_REVIEW,
+      payload: null,
+    });
+    history.goBack();
+  };
+
   return (
     <>
       <MyNav />
       <Container className="container_create_review">
-        <div className="header">Create Review</div>
+        {/*<div className="header">Create Review</div>*/}
         <ReviewTitle
           title={values.title}
           readOnly={false}
@@ -128,14 +143,23 @@ const CreateReview: FC = () => {
           <>
             <div className="titles_create">Category</div>
             <ItemDropDown
-              sendOutSelectedItem={(c) =>
+              sendOutSelectedItem={(c) => {
+                let cat;
+                categories.forEach((d) => {
+                  if (d.name === c.value) cat = d;
+                });
                 setValues({
                   ...values,
-                  categoryId: c.value,
-                })
-              }
+                  category: cat,
+                });
+              }}
               items={categories.map((c) => new Item(c.id, c.name))}
               multiple={false}
+              selectedItemsDefault={
+                values.category
+                  ? [new Item(values.category?.name, values.category?.name)]
+                  : undefined
+              }
             />
           </>
         )}
@@ -148,6 +172,7 @@ const CreateReview: FC = () => {
               }
               items={allTags.getAllTags.map((t) => new Item(t.id, t.name))}
               multiple={true}
+              selectedItemsDefault={values.tags}
             />
           </>
         )}
@@ -166,9 +191,18 @@ const CreateReview: FC = () => {
           }
           items={marks.map((t) => new Item(`${t}`, `${t}`))}
           multiple={false}
+          selectedItemsDefault={
+            values.category
+              ? [new Item(values.authorMark + "", values.authorMark + "")]
+              : undefined
+          }
         />
         <Button variant="secondary" onClick={onClick} className="buttons">
-          Create Review
+          Confirm
+        </Button>
+
+        <Button variant="secondary" onClick={onReturn} className="buttons">
+          Return
         </Button>
 
         <strong style={{ color: "red" }}>{postMsg}</strong>

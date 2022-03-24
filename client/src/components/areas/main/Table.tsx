@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Review from "../../../models/Review";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../store/AppState";
-import BootstrapTable from "react-bootstrap-table-next";
 import RichEditor from "../../editor/RichEditor";
+import BootstrapTable, { SelectRowProps } from "react-bootstrap-table-next";
+import { ReducerType } from "../../../store/ReducerType";
 
 const columns = [
   {
@@ -28,7 +29,8 @@ const Table = () => {
   const reviewsState = useSelector((state: AppState) => state.show);
   const user = useSelector((state: AppState) => state.user);
   const [data, setData] = useState<Array<Review>>([]);
-
+  const [selectedCbox, setSelectedCbox] = useState<string>("");
+  const dispatch = useDispatch();
   useEffect(() => {
     if (reviewsState) {
       setData(reviewsState);
@@ -53,6 +55,20 @@ const Table = () => {
 
     // nonExpandable: ["1"],
   };
+  const selectRow: SelectRowProps<any> = {
+    mode: "checkbox",
+    clickToSelect: false,
+    hideSelectAll: true,
+    clickToExpand: true,
+    onSelect: (row, isSelect) => {
+      dispatch({
+        type: ReducerType.SELECTED_REVIEW,
+        payload: isSelect ? data.filter((f) => f.id === row.id)[0] : null,
+      });
+      isSelect ? setSelectedCbox(row.id) : setSelectedCbox("");
+    },
+    selected: [selectedCbox],
+  };
 
   return data.length > 0 ? (
     <BootstrapTable
@@ -63,6 +79,7 @@ const Table = () => {
       classes="format_table"
       bordered={false}
       expandRow={expandRow}
+      selectRow={selectRow}
     />
   ) : null;
 };
