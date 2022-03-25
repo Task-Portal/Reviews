@@ -8,7 +8,8 @@ const Main = () => {
   return (
     <Container>
       <CloudTags />
-      <Table />;{/*<CardHolder />*/}
+      {/*<Table />;*/}
+      <CardHolder />
     </Container>
   );
 };

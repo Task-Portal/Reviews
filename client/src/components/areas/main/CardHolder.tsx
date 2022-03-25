@@ -18,13 +18,7 @@ const CardHolder = () => {
             <Card.Body>
               <Card.Title>{r.title}</Card.Title>
               <Card.Text>
-                {
-                  <RichEditor
-                    existingBody={JSON.stringify(r.body)}
-                    readOnly={true}
-                  />
-                }
-                some text
+                {<RichEditor existingBody={r.body + ""} readOnly={true} />}
               </Card.Text>
             </Card.Body>
           </Card>

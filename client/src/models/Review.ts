@@ -7,7 +7,7 @@ export default class Review {
     public id: string,
     public body: Node[],
     public title: string,
-    public authMark: number,
+    public authorMark: number,
     // public category: object,
     public category: Category,
     public tags: Array<Tag>,

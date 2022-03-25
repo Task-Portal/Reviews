@@ -16,25 +16,24 @@ const EditReview: FC = () => {
   const categories = useSelector((state: AppState) => state.categories);
 
   const createElement = () => {
-    if (review != null && review[0] != null && categories) {
-      let r = review[0];
+    if (review != null && categories) {
       let cat;
       categories.forEach((c) => {
-        if (c?.name === r.category.name) cat = c;
+        if (c?.name === review?.category.name) cat = c;
       });
 
       return (
         <CreateReview
-          id={r.id}
-          title={r.title}
-          tags={r?.tags?.map((f) => new Item(f.id, f.name)) || []}
-          photos={r.photos}
-          body={r.body}
+          id={review.id}
+          title={review.title}
+          tags={review?.tags?.map((f) => new Item(f.id, f.name)) || []}
+          photos={review.photos}
+          body={review.body}
           category={cat}
-          authorMark={r.authorMark}
-          userId={r.user.id}
+          authorMark={review.authorMark}
+          userId={review.user.id}
           // @ts-ignore
-          body_node={r.body}
+          body_node={review.body}
         />
       );
     }

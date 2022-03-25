@@ -46,6 +46,10 @@ const MyNav = () => {
       type: ReducerType.SHOW_REVIEW_TYPE,
       payload: data.getAllReviews,
     });
+    dispatch({
+      type: ReducerType.SELECTED_REVIEW,
+      payload: null,
+    });
 
     history.push(`/`);
   };

@@ -85,6 +85,9 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
     ) {
       setPostMsg("The body is empty.");
       return;
+    } else if (values.category === undefined) {
+      setPostMsg("The category is empty.");
+      return;
     }
 
     const variables = {
@@ -97,7 +100,7 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
       authorMark: values.authorMark,
       // photos: values.photos,
     };
-
+    console.log("Variables: ", variables);
     try {
       const result = await execCreate({ variables });
       if (result && result.data && result.data.createReview.messages) {
@@ -129,25 +132,29 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
       <MyNav />
       <Container className="container_create_review">
         {/*<div className="header">Create Review</div>*/}
+        {/*region Title*/}
         <ReviewTitle
           title={values.title}
           readOnly={false}
           sendOutTitle={(t) => setValues({ ...values, title: t })}
         />
+        {/*endregion*/}
+        {/*region Body*/}
         <div className="titles_create">Body</div>
         <div className="body">
           <RichEditor existingBody={values.body} sendOutBody={receiveBody} />
         </div>
+        {/*endregion*/}
 
+        {/*region Category*/}
         {categories && (
           <>
             <div className="titles_create">Category</div>
             <ItemDropDown
               sendOutSelectedItem={(c) => {
-                let cat;
-                categories.forEach((d) => {
-                  if (d.name === c.value) cat = d;
-                });
+                let cat = categories.filter((d) => {
+                  return d.name === c.label;
+                })[0];
                 setValues({
                   ...values,
                   category: cat,
@@ -163,6 +170,8 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
             />
           </>
         )}
+        {/*endregion*/}
+        {/*region Tags*/}
         {allTags && allTags.getAllTags && (
           <>
             <div className="titles_create">Tags</div>
@@ -176,7 +185,8 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
             />
           </>
         )}
-
+        {/*endregion*/}
+        {/*region Photos*/}
         <div className="titles_create">Photos</div>
         <FileUploader
           accept=".jpg,.png,.jpeg"
@@ -184,6 +194,8 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
           multiple
           updateFilesCb={updateUploadedFiles}
         />
+        {/*endregion*/}
+        {/*region Author Mark*/}
         <div className="titles_create">Author Mark</div>
         <ItemDropDown
           sendOutSelectedItem={(m) =>
@@ -197,6 +209,8 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
               : undefined
           }
         />
+        {/*endregion*/}
+        {/*region Buttons*/}
         <Button variant="secondary" onClick={onClick} className="buttons">
           Confirm
         </Button>
@@ -204,6 +218,7 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
         <Button variant="secondary" onClick={onReturn} className="buttons">
           Return
         </Button>
+        {/*endregion*/}
 
         <strong style={{ color: "red" }}>{postMsg}</strong>
       </Container>
