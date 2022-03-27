@@ -5,12 +5,8 @@ import userReducer from "./common/UserReducer";
 import { allowSubmit } from "./common/Helpers";
 import { gql, useMutation } from "@apollo/client";
 import useRefreshReduxMe, { Me } from "../../hooks/useRefreshReduxMe";
-
-const LoginMutation = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password)
-  }
-`;
+import GLogin from "./GLogin";
+import { LoginMutation } from "../../gql/gql_functions";
 
 const Login: FC<ModalProps> = ({ isOpen, onClickToggle }) => {
   const [execLogin] = useMutation(LoginMutation, {
@@ -28,7 +24,8 @@ const Login: FC<ModalProps> = ({ isOpen, onClickToggle }) => {
       resultMsg: "",
       isSubmitDisabled: true,
     });
-  const { execMe, updateMe } = useRefreshReduxMe();
+  // const { execMe, updateMe } = useRefreshReduxMe();
+  const { refetch, updateMe } = useRefreshReduxMe();
 
   const onChangeUserEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: "email", payload: e.target.value.trim() });
@@ -56,7 +53,7 @@ const Login: FC<ModalProps> = ({ isOpen, onClickToggle }) => {
     });
 
     dispatch({ type: "resultMsg", payload: result.data.login });
-    execMe();
+    refetch();
     updateMe();
   };
 
@@ -74,49 +71,51 @@ const Login: FC<ModalProps> = ({ isOpen, onClickToggle }) => {
       shouldCloseOnOverlayClick={true}
       ariaHideApp={false}
     >
-      <form>
-        <div className="reg-inputs">
-          <div>
-            <label>email</label>
-            <input type="text" value={email} onChange={onChangeUserEmail} />
-          </div>
-          <div>
-            <label>password</label>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={onChangePassword}
-            />
-          </div>
+      {/*<form>*/}
+      <div className="reg-inputs">
+        <div>
+          <label>email</label>
+          <input type="text" value={email} onChange={onChangeUserEmail} />
         </div>
-        <div className="form-buttons form-buttons-sm">
-          <div className="form-btn-left">
-            <button
-              style={{
-                marginLeft: ".5em",
-                background: isSubmitDisabled ? "skyblue" : "deepskyblue",
-              }}
-              className="action-btn"
-              disabled={isSubmitDisabled}
-              onClick={onClickLogin}
-            >
-              Login
-            </button>
-            <button
-              style={{ marginLeft: ".5em" }}
-              className="cancel-btn"
-              onClick={onClickCancel}
-            >
-              Close
-            </button>
-          </div>
+        <div>
+          <label>password</label>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={onChangePassword}
+          />
+        </div>
+      </div>
+      <div className="form-buttons form-buttons-sm">
+        <div className="form-btn-left">
+          <button
+            style={{
+              marginLeft: ".5em",
+              background: isSubmitDisabled ? "skyblue" : "deepskyblue",
+            }}
+            className="action-btn"
+            disabled={isSubmitDisabled}
+            onClick={onClickLogin}
+          >
+            Login
+          </button>
+          <button
+            style={{ marginLeft: ".5em" }}
+            className="cancel-btn"
+            onClick={onClickCancel}
+          >
+            Close
+          </button>
+          {/*Todo check if it can be accessed*/}
+          <GLogin />
+        </div>
 
-          <span className="form-btn-left">
-            <strong>{resultMsg}</strong>
-          </span>
-        </div>
-      </form>
+        <span className="form-btn-left">
+          <strong>{resultMsg}</strong>
+        </span>
+      </div>
+      {/*</form>*/}
     </ReactModal>
   );
 };

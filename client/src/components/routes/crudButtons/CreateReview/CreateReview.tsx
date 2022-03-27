@@ -88,6 +88,9 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
     } else if (values.category === undefined) {
       setPostMsg("The category is empty.");
       return;
+    } else if (values.tags === undefined) {
+      setPostMsg("Any tag should be chosen.");
+      return;
     }
 
     const variables = {
@@ -204,7 +207,7 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
           items={marks.map((t) => new Item(`${t}`, `${t}`))}
           multiple={false}
           selectedItemsDefault={
-            values.category
+            values.authorMark
               ? [new Item(values.authorMark + "", values.authorMark + "")]
               : undefined
           }

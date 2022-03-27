@@ -48,3 +48,9 @@ export const DeleteReview = gql`
     }
   }
 `;
+
+export const LoginMutation = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password)
+  }
+`;

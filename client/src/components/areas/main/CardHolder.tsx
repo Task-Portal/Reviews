@@ -4,29 +4,50 @@ import { AppState } from "../../../store/AppState";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import RichEditor from "../../editor/RichEditor";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil, faStar } from "@fortawesome/free-solid-svg-icons";
 
 const CardHolder = () => {
   const reviews = useSelector((state: AppState) => state.show);
+  const user = useSelector((state: AppState) => state.user);
 
   const printCards = () => {
     if (reviews && reviews.length > 0) {
       return reviews.map((r) => (
         <>
-          {" "}
-          <Card border="danger" style={{ width: "18rem" }}>
-            <Card.Header>Author: {r.user.userName}</Card.Header>
+          <Card border="danger" key={r.id}>
+            <Card.Header>
+              <FontAwesomeIcon icon={faPencil} />
+              {r.user.userName} {printStart(r.authorMark)}
+            </Card.Header>
             <Card.Body>
-              <Card.Title>{r.title}</Card.Title>
+              <Card.Title style={{ textAlign: "center" }}>{r.title}</Card.Title>
               <Card.Text>
-                {<RichEditor existingBody={r.body + ""} readOnly={true} />}
+                {user ? (
+                  <div className="review_body_background">
+                    <RichEditor existingBody={r.body + ""} readOnly={true} />
+                  </div>
+                ) : null}
               </Card.Text>
             </Card.Body>
+            <Card.Footer className="text-muted">
+              {r.tags.map((t, i) => (
+                <span>
+                  {t.name}
+                  {"  "}{" "}
+                </span>
+              ))}
+            </Card.Footer>
           </Card>
           <br />
         </>
       ));
     }
     return null;
+  };
+
+  const printStart = (num: Number) => {
+    return [...Array(num).keys()].map((i) => <FontAwesomeIcon icon={faStar} />);
   };
 
   return (

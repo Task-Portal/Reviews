@@ -5,7 +5,7 @@ export interface EmailTestResult {
   isValid: boolean;
 }
 
-export const isEmailValid = (
+export const isEmailValid = async (
   email: string,
   dispatch: { (value: any): void; (value: any): void }
 ) => {
@@ -18,37 +18,37 @@ export const isEmailValid = (
   } else if (!isEmail.test(email)) {
     allowSubmit(dispatch, "It does not look like an email.", true);
   } else {
-    getEmails(email, dispatch);
+    if (await getEmailFetch(email)) {
+      allowSubmit(dispatch, "Email is taken", true);
+    } else {
+      allowSubmit(dispatch, "", false);
+    }
   }
 };
 
-const getEmails = (
-  email: string,
-  dispatch: (p: { payload: any; type: string }) => void
-) => {
-  (async () => {
-    await fetch("http://localhost:5000/graphql", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: `
+export const getEmailFetch = async (email: string): Promise<boolean> => {
+  return await fetch("http://localhost:5000/graphql", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `
         query Email($email: String!) {
     checkEmail(email: $email)
-   
+
   }
         `,
-        variables: { email: email },
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && data.data.checkEmail) {
-          if (data.data.checkEmail === "Email is taken") {
-            allowSubmit(dispatch, data.data.checkEmail, true);
-          } else {
-            allowSubmit(dispatch, "", false);
-          }
+      variables: { email: email },
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data && data.data.checkEmail) {
+        if (data.data.checkEmail === "Email is taken") {
+          return true;
+        } else {
+          return false;
         }
-      });
-  })();
+      }
+      return false;
+    });
 };

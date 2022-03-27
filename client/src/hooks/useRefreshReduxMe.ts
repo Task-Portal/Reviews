@@ -1,4 +1,4 @@
-import { gql, QueryLazyOptions, useLazyQuery } from "@apollo/client";
+import { gql, QueryLazyOptions, useLazyQuery, useQuery } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ReducerType } from "../store/ReducerType";
@@ -19,13 +19,15 @@ export const Me = gql`
 `;
 
 interface UseRefreshReduxMeResult {
-  execMe: (options?: QueryLazyOptions<Record<string, any>> | undefined) => void;
+  // execMe: (options?: QueryLazyOptions<Record<string, any>> | undefined) => void;
+  refetch: () => void;
   deleteMe: () => void;
   updateMe: () => void;
 }
 
 const useRefreshReduxMe = (): UseRefreshReduxMeResult => {
-  const [execMe, { data }] = useLazyQuery(Me);
+  // const [execMe, { data }] = useLazyQuery(Me);
+  const { data, refetch } = useQuery(Me);
   const reduxDispatcher = useDispatch();
   const history = useHistory();
 
@@ -46,6 +48,7 @@ const useRefreshReduxMe = (): UseRefreshReduxMeResult => {
     }
   };
 
-  return { execMe, deleteMe, updateMe };
+  // return { execMe, deleteMe, updateMe };
+  return { refetch, deleteMe, updateMe };
 };
 export default useRefreshReduxMe;

@@ -16,6 +16,7 @@ import { useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GetAllReviews } from "../../../App";
 import { ReducerType } from "../../../store/ReducerType";
+import GLogout from "../../auth/GLogout";
 
 const MyNav = () => {
   const [showRegister, setShowRegister] = useState(false);
@@ -119,6 +120,7 @@ const MyNav = () => {
                 />
               </Nav.Link>
             ) : null}
+            <GLogout />
           </Nav>
           <Finder />
         </Navbar.Collapse>
