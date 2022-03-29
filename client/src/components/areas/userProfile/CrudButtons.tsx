@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../store/AppState";
 import { useMutation } from "@apollo/client";
-import { Create, DeleteReview } from "../../../gql/gql_functions";
+import { DeleteReview } from "../../../gql/gql_functions";
 import Review from "../../../models/Review";
 import { ReducerType } from "../../../store/ReducerType";
 
@@ -39,6 +39,10 @@ const CrudButtons = () => {
         dispatch({
           type: ReducerType.SHOW_REVIEW_TYPE,
           payload: newReviews,
+        });
+        dispatch({
+          type: ReducerType.SELECTED_REVIEW,
+          payload: null,
         });
       }
     }

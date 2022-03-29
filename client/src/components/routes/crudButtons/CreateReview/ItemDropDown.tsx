@@ -20,7 +20,6 @@ const ItemDropDown: FC<ItemDropDownProps> = ({
   multiple,
   selectedItemsDefault,
 }) => {
-  // const [selectedItem, setSelectedItem]=useState<Array<Item>>(items||[])
   const onChangeSelect = (selected: any) => {
     // setSelectedItem(selected)
     if (sendOutSelectedItem) sendOutSelectedItem(selected);

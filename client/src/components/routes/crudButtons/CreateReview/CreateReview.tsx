@@ -80,8 +80,8 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
       setPostMsg("The title is empty.");
       return;
     } else if (
-      values.body_node?.length === 0 ||
-      values.body_node === undefined
+      values.body_node === undefined ||
+      values.body_node.length === 0
     ) {
       setPostMsg("The body is empty.");
       return;
