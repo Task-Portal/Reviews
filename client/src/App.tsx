@@ -39,6 +39,7 @@ export const GetAllCategories = gql`
     }
   }
 `;
+// require("dotenv").config();
 
 function App() {
   const dispatch = useDispatch();

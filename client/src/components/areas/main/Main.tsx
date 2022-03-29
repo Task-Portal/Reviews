@@ -1,5 +1,4 @@
 import React from "react";
-import Table from "./Table";
 import CloudTags from "./CloudTags";
 import Container from "react-bootstrap/Container";
 import CardHolder from "./CardHolder";

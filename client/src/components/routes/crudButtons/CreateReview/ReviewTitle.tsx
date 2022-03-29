@@ -11,25 +11,14 @@ const ReviewTitle: FC<ReviewTitleProps> = ({
   readOnly,
   sendOutTitle,
 }) => {
-  const [currentTitle, setCurrentTitle] = useState("");
-
-  useEffect(() => {
-    setCurrentTitle(title || "");
-  }, [title]);
-
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentTitle(e.target.value);
-    sendOutTitle(e.target.value);
-  };
-
   return (
     <div>
       <strong>Title</strong>
       <div className="title">
         <input
           type="text"
-          value={currentTitle}
-          onChange={onChangeTitle}
+          value={title || ""}
+          onChange={(e) => sendOutTitle(e.target.value)}
           readOnly={readOnly}
         />
       </div>

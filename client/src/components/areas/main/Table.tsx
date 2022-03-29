@@ -25,6 +25,13 @@ const columns = [
   },
 ];
 
+// const defaultSorted = [
+//   {
+//     dataField: "name", // if dataField is not match to any column you defined, it will be ignored.
+//     order: "desc", // desc or asc
+//   },
+// ];
+
 const Table = () => {
   const reviewsState = useSelector((state: AppState) => state.show);
   const user = useSelector((state: AppState) => state.user);

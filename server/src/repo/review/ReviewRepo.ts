@@ -75,6 +75,7 @@ export const getSearchReviews = async (
         );
       })
     )
+    .orderBy("rev.createdOn")
     .getMany();
   return {
     entities: reviews,
@@ -99,6 +100,7 @@ const getReviewsByTag = async (tags: Array<string>) => {
     .innerJoin("rev.category", "cat")
     .innerJoin("rev.user", "u")
     .where("tags.name IN (:...t)", { t: tags })
+    .orderBy("rev.createdOn")
     .getMany();
 
   return {

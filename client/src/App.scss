@@ -1,10 +1,11 @@
 :root {
   --border-color: gray;
   --border: solid 0.1em var(--border-color);
+
 }
 
 $borderRadius: 10px;
-$window_background: white;
+$window_background: #eceaea;
 
 %body_background {
   background: rgb(217, 238, 238);
@@ -13,9 +14,9 @@ $window_background: white;
 
 body {
   min-height: 75rem;
-  background-image: url(../src/img/bannerBG.png);
+  //background-image: url(../src/img/bannerBG.png);
   background-size: cover;
-  background-repeat: no-repeat;
+  background: linear-gradient(0deg, #e3ffe7 0%, #d9e7ff 100%) no-repeat;
   padding-top: 65px;
 
 }

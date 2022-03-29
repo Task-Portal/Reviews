@@ -30,9 +30,9 @@ const CardHolder = () => {
                 ) : null}
               </Card.Text>
             </Card.Body>
-            <Card.Footer className="text-muted">
+            <Card.Footer className="text-muted" key={`f${r.id}`}>
               {r.tags.map((t, i) => (
-                <span>
+                <span key={`tag${i}`}>
                   {t.name}
                   {"  "}{" "}
                 </span>

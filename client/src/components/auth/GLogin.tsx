@@ -31,8 +31,6 @@ const GLogin = () => {
     const email = response.profileObj.email;
     const userName = response.profileObj.name;
     const password = response.profileObj.googleId;
-    // setConfirm(true);
-    // await getEmails(email, dispatch);
 
     try {
       if (!(await getEmailFetch(email))) {
@@ -70,24 +68,23 @@ const GLogin = () => {
       {/*  <Button>Confirm</Button>*/}
       {/*) : (*/}
       <GoogleLogin
-        clientId="289670306900-qd4kr7dadmffm0lv2vrvkadebolamou6.apps.googleusercontent.com"
+        // clientId="289670306900-qd4kr7dadmffm0lv2vrvkadebolamou6.apps.googleusercontent.com"
+        clientId={`${process.env.REACT_APP_GOOGLE_KEY}`}
         buttonText="Login"
         onSuccess={responseGoogle}
         onFailure={responseGoogle}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
-        // className="cancel-btn "
-
-        // render={(renderProps) => (
-        //   <button
-        //     onClick={renderProps.onClick}
-        //     disabled={renderProps.disabled}
-        //     className="cancel-btn "
-        //     style={{ marginLeft: ".5em" }}
-        //   >
-        //       <FontAwesomeIcon icon={faGofore} />Login
-        //   </button>
-        // )}
+        render={(renderProps) => (
+          <button
+            onClick={renderProps.onClick}
+            disabled={renderProps.disabled}
+            className="cancel-btn "
+            style={{ marginLeft: ".5em" }}
+          >
+            {/*<FontAwesomeIcon icon={faGofore} />*/}Google Login
+          </button>
+        )}
       />
       {/*)}*/}
     </>

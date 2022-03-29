@@ -29,7 +29,7 @@ const Logout: FC<ModalProps> = ({ isOpen, onClickToggle }) => {
   ) => {
     e.preventDefault();
     onClickToggle(e);
-    console.log("Logout!!!!!!!!!!!!!");
+
     await execLogout({
       variables: {
         email: user?.email,

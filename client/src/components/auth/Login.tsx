@@ -108,7 +108,7 @@ const Login: FC<ModalProps> = ({ isOpen, onClickToggle }) => {
             Close
           </button>
           {/*Todo check if it can be accessed*/}
-          <GLogin />
+          {/*<GLogin />*/}
         </div>
 
         <span className="form-btn-left">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
@@ -8,7 +8,7 @@ import configureStore from "./store/configureStore";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ReactModal from "react-modal";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // console.log("gql url", process.env.REACT_APP_GQL_URL);
 const client = new ApolloClient({
@@ -31,5 +31,3 @@ ReactDOM.render(
 );
 
 ReactModal.setAppElement("#root");
-
-

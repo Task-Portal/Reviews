@@ -130,6 +130,7 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
     history.goBack();
   };
 
+  console.log("Values: ", values);
   return (
     <>
       <MyNav />
@@ -189,15 +190,6 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
           </>
         )}
         {/*endregion*/}
-        {/*region Photos*/}
-        <div className="titles_create">Photos</div>
-        <FileUploader
-          accept=".jpg,.png,.jpeg"
-          label=""
-          multiple
-          updateFilesCb={updateUploadedFiles}
-        />
-        {/*endregion*/}
         {/*region Author Mark*/}
         <div className="titles_create">Author Mark</div>
         <ItemDropDown
@@ -211,6 +203,15 @@ const CreateReview: FC<ReviewFormTypes | null> = (props) => {
               ? [new Item(values.authorMark + "", values.authorMark + "")]
               : undefined
           }
+        />
+        {/*endregion*/}
+        {/*region Photos*/}
+        <div className="titles_create">Photos</div>
+        <FileUploader
+          accept=".jpg,.png,.jpeg"
+          label=""
+          multiple
+          updateFilesCb={updateUploadedFiles}
         />
         {/*endregion*/}
         {/*region Buttons*/}

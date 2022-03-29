@@ -1,14 +1,13 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  JoinColumn,
-  OneToMany,
-  ManyToOne,
-  BaseEntity,
-  ManyToMany,
-  JoinTable,
+  Entity,
   Index,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Length } from "class-validator";
 import { Category } from "./Category";
@@ -17,9 +16,10 @@ import { Tag } from "./Tag";
 import { Points } from "./Points";
 import { Like } from "./Like";
 import { User } from "../user/User";
+import { Auditable } from "../Auditable";
 
 @Entity({ name: "Review" })
-export class Review extends BaseEntity {
+export class Review extends Auditable {
   @PrimaryGeneratedColumn({ name: "Id", type: "bigint" })
   id: string;
 
