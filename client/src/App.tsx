@@ -10,6 +10,7 @@ import UserProfile from "./components/routes/userProfile/UserProfile";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import CreateReview from "./components/routes/crudButtons/CreateReview/CreateReview";
 import EditReview from "./components/routes/crudButtons/EditReview";
+import SignIn from "./components/auth/signIn/SignIn";
 export const GetAllReviews = gql`
   query getAllReviews($userId: String) {
     getAllReviews(userId: $userId) {
@@ -89,10 +90,12 @@ function App() {
   const renderUserProfile = (props: any) => <UserProfile {...props} />;
   const renderCreateReview = (props: any) => <CreateReview {...props} />;
   const renderEditReview = (props: any) => <EditReview {...props} />;
+  const renderSignIn = (props: any) => <SignIn {...props} />;
 
   return (
     <Switch>
       <Route exact={true} path="/" render={renderHome} />
+      <Route exact={true} path="/login" render={renderSignIn} />
       <PrivateRoute path="/up/:id" component={renderUserProfile} exact />
       <PrivateRoute path="/create/:id" component={renderCreateReview} exact />
       <PrivateRoute path="/edit/:id" component={renderEditReview} exact />
